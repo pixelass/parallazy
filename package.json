@@ -1,0 +1,163 @@
+{
+  "name": "parallazy",
+  "version": "1.0.0",
+  "description": "A lazy parallax plugin",
+  "author": {
+    "name": "Gregor Adams",
+    "email": "greg@pixelass.com",
+    "homepage": "http://pixelass.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pixelass/parallazy.git"
+  },
+  "keywords": [
+    "parralax",
+    "requestanimationframe",
+    "scroll",
+    "lazy",
+    "performance",
+    "inview"
+  ],
+  "bugs": {
+    "url": "https://github.com/pixelass/parallazy/issues"
+  },
+  "homepage": "https://github.com/pixelass/parallazy#readme",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "scripts": {
+    "babel": "BABEL_ENV=production babel src --out-dir lib --copy-files",
+    "build": "NODE_ENV=production babel-node ./scripts/build",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "report": "nyc report --reporter=html",
+    "docs": "rm -rf docs/api && mkdir docs/api && jsdoc -c jsdoc.json",
+    "lint": "npm run eslint; npm run stylelint",
+    "stylelint": "stylelint {demo,src}/**/*.{css,less,scss}",
+    "eslint": "xo '{demo,src}/**/*.js'",
+    "prepush": "npm test",
+    "prerelease": "npm run babel; npm test",
+    "posttest": "npm run lint",
+    "release": "standard-version --no-verify",
+    "server": "babel-node ./scripts/server",
+    "dev": "babel-node ./scripts/dev",
+    "start": "npm run build && npm run server",
+    "test": "nyc ava --tap | tap-nyan",
+    "watch": "NODE_ENV=development babel-node ./scripts/watch"
+  },
+  "config": {
+    "devPort": 3000,
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "dependencies": {
+    "abcq": "^0.2.2",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-runtime": "^6.23.0"
+  },
+  "devDependencies": {
+    "ava": "^0.19.1",
+    "babel-cli": "^6.23.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "babelify": "^7.3.0",
+    "browserify": "^14.1.0",
+    "browserify-hmr": "^0.3.5",
+    "caniuse-db": "^1.0.30000670",
+    "coveralls": "^2.11.16",
+    "css-modulesify": "^0.27.2",
+    "cz-conventional-changelog": "^2.0.0",
+    "easing-utils": "^0.0.7",
+    "errorify": "^0.3.1",
+    "hopsdoc": "^0.1.7",
+    "http-server": "^0.10.0",
+    "husky": "^0.13.3",
+    "ignore-styles": "^5.0.1",
+    "jsdoc": "^3.4.3",
+    "nyc": "^10.1.2",
+    "one-listener": "^0.5.1",
+    "postcss-cssnext": "^2.11.0",
+    "sourcemapify": "^1.1.1",
+    "standard-version": "^4.0.0",
+    "stylelint": "^7.9.0",
+    "stylelint-config-standard": "^16.0.0",
+    "stylelint-no-unsupported-browser-features": "^1.0.0",
+    "tap-nyan": "^1.1.0",
+    "uglifyify": "^3.0.4",
+    "watchify": "^3.9.0",
+    "winston": "^2.3.1",
+    "xo": "^0.18.2"
+  },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 ChromeAndroid versions",
+    "last 2 Edge versions",
+    "last 2 iOS versions",
+    "last 2 Safari versions",
+    "last 2 Firefox versions"
+  ],
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-2"
+    ],
+    "plugins": [
+      "transform-runtime"
+    ],
+    "env": {
+      "development": {
+        "sourceMaps": "inline"
+      }
+    }
+  },
+  "xo": {
+    "space": true,
+    "semicolon": false
+  },
+  "stylelint": {
+    "extends": "stylelint-config-standard",
+    "plugins": [
+      "stylelint-no-unsupported-browser-features"
+    ],
+    "rules": {
+      "indentation": 2,
+      "number-leading-zero": null,
+      "plugin/no-unsupported-browser-features": [
+        true
+      ],
+      "selector-pseudo-class-no-unknown": [
+        true,
+        {
+          "ignorePseudoClasses": [
+            "global"
+          ]
+        }
+      ]
+    }
+  },
+  "ava": {
+    "files": [
+      "src/**/spec/*.js"
+    ],
+    "source": [
+      "src/**/*.js"
+    ],
+    "presets": [
+      "@ava/stage-4",
+      "@ava/transform-test-files"
+    ],
+    "failFast": true,
+    "tap": true,
+    "require": [
+      "babel-register",
+      "ignore-styles"
+    ],
+    "babel": "inherit"
+  }
+}

@@ -1,0 +1,88 @@
+body {
+  margin: 0;
+  background: #fff;
+}
+
+.box {
+  width: 500vw; /* stylelint-disable-line plugin/no-unsupported-browser-features */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  padding: 50vh 100vw 100vh 50vw; /* stylelint-disable-line plugin/no-unsupported-browser-features */
+}
+
+.parallazy {
+  position: relative;
+  height: 300px;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 300px;
+          flex: 0 1 300px;
+  margin: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  font-size: 4em;
+  font-family: monospace;
+  font-weight: bolder;
+  background: #aaa;
+  color: #fff;
+  overflow: hidden;
+  border: 10px solid red
+}
+
+.parallazy:nth-child(3n + 2) {
+  -ms-flex-preferred-size: 400px;
+      flex-basis: 400px;
+}
+
+.parallazy:nth-child(5n + 2) {
+  -ms-flex-preferred-size: 500px;
+      flex-basis: 500px;
+}
+
+.parallazy img {
+  width: 100%;
+}
+
+.cover {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #fff;
+  -webkit-transform-origin: 0 0;
+          transform-origin: 0 0;
+  transition: opacity 0.25s ease-in-out;
+  -webkit-transform: scale3d(       1,       calc(1 - var(--progress-y)),       1     );
+          transform: scale3d(       1,       calc(1 - var(--progress-y)),       1     );
+}
+
+._demo_main__visibleX {
+  border-color: orange;
+}
+
+._demo_main__visibleY {
+  border-color: orange;
+}
+
+._demo_main__pluginLoaded {
+  /* pluginLoaded */
+}
+
+
+._demo_main__visibleX._demo_main__visibleY {
+  border-color: green;
+}

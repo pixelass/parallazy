@@ -1,0 +1,79 @@
+:root {
+  --bg: #fff;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+}
+
+:global(.box) {
+  width: 500vw; /* stylelint-disable-line plugin/no-unsupported-browser-features */
+  display: flex;
+  flex-wrap: wrap;
+  padding: 50vh 100vw 100vh 50vw; /* stylelint-disable-line plugin/no-unsupported-browser-features */
+}
+
+:global(.parallazy) {
+  position: relative;
+  height: 300px;
+  flex: 0 1 300px;
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: 4em;
+  font-family: monospace;
+  font-weight: bolder;
+  background: #aaa;
+  color: #fff;
+  overflow: hidden;
+  border: 10px solid red;
+
+  &:nth-child(3n + 2) {
+    flex-basis: 400px;
+  }
+
+  &:nth-child(5n + 2) {
+    flex-basis: 500px;
+  }
+
+  & img {
+    width: 100%;
+  }
+}
+
+:global(.cover) {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: var(--bg);
+  transform-origin: 0 0;
+  transition: opacity 0.25s ease-in-out;
+  transform:
+    scale3d(
+      1,
+      calc(1 - var(--progress-y)),
+      1
+    );
+}
+
+.visibleX {
+  border-color: orange;
+}
+
+.visibleY {
+  border-color: orange;
+}
+
+.pluginLoaded {
+  /* pluginLoaded */
+}
+
+.visibleX.visibleY {
+  border-color: green;
+}
