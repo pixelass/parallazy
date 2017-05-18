@@ -23,9 +23,73 @@
 
 <!-- toc -->
 
+- [Usage](#usage)
+  * [Multiple instances](#multiple-instances)
+  * [Custom options](#custom-options)
+  * [Destroy](#destroy)
 - [Developing](#developing)
 
 <!-- tocstop -->
+
+## Usage
+
+```
+yarn add parallazy
+```
+
+### Multiple instances
+
+```js
+import Parallazy from 'parallazy'
+
+const elements = Array.from(document.querySelectorAll('.parallazy'))
+
+const parallazies = elements.map(el => {
+  const parallazy = new Parallazy()
+  parallazy.init(el)
+  return parallazy
+})
+```
+
+### Custom options
+
+```js
+import Parallazy from 'parallazy'
+
+const elements = Array.from(document.querySelectorAll('.parallazy'))
+
+const parallazies = elements.map(el => {
+  // configure instance
+  const parallazy = new Parallazy({
+    classNames: {
+      visibleX: styles.visibleX,
+      visibleY: styles.visibleY,
+      initiallyVisible: styles.initiallyVisible,
+      pluginLoaded: styles.pluginLoaded
+    },
+    decimals: 2,
+    entering: false,
+    onProgress(el, p) {
+      el.style.setProperty('--progress-y', p.progressY)
+    }
+  })
+  // initialize instance
+  parallazy.init(el)
+  return parallazy
+})
+```
+
+### Destroy
+
+```js
+import Parallazy from 'parallazy'
+
+const parallazy = new Parallazy()
+// Initialize instance.
+parallazy.init(document.querySelector('.parallazy'))
+// Destroy instance.
+parallazy.destroy()
+```
 
 ## Developing
 
