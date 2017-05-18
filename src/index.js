@@ -1,3 +1,52 @@
+/**
+ * @file src/index.js
+ * @author Gregor Adams <greg@pixelass.com>
+ * @module Parallazy
+ * @example
+ * // import module from node_modules
+ * import Parallazy from 'parallazy'
+ *
+ * // Get all elements as an array
+ * const elements = Array.from(document.querySelectorAll('.parallazy'))
+ *
+ * // Create an Array of initialized instances
+ * const parallazies = elements.map(el => {
+ *   const parallazy = new Parallazy()
+ *   parallazy.init(el)
+ *   return parallazy
+ * })
+ *
+ * // Create an Array of initialized instances,
+ * // with custom configuration
+ * const parallazies = elements.map(el => {
+ *   // configure instance
+ *   const parallazy = new Parallazy({
+ *     classNames: {
+ *       visibleX: styles.visibleX,
+ *       visibleY: styles.visibleY,
+ *       initiallyVisible: styles.initiallyVisible,
+ *       pluginLoaded: styles.pluginLoaded
+ *     },
+ *     decimals: 2,
+ *     entering: false,
+ *     onProgress(el, p) {
+ *       el.style.setProperty('--progress-y', p.progressY)
+ *     }
+ *   })
+ *   // initialize instance
+ *   parallazy.init(el)
+ *   return parallazy
+ * })
+ *
+ * // Destroy instances.
+ * // create instance (with settings)
+ * const parallazy = new Parallazy()
+ * // Initialize instance.
+ * parallazy.init(document.querySelector('.parallazy'))
+ * // Destroy instance.
+ * parallazy.destroy()
+ */
+
 import {requestEventListener} from './event-listeners'
 import {inBound} from './helpers'
 import parallize from './parallize'
@@ -42,6 +91,7 @@ class Parallazy {
   /**
    * Public methods.
    * @memberof module:Parallazy
+   * @type {getter}
    * @returns {object}
    */
   get methods() {
@@ -54,6 +104,7 @@ class Parallazy {
   /**
    * Initialize plugin
    * @memberof module:Parallazy
+   * @type {method}
    * @param {HTMLElement} el
    */
   init(el) {
@@ -65,9 +116,10 @@ class Parallazy {
 
   /**
    * Destroys the instance. Reverts all changes that have been made to the DOM.
-   * @memberof module:Parallazy
    * Also removes all event Listeners.
    * Removes all event listeners and element class names.
+   * @memberof module:Parallazy
+   * @type {method}
    */
   destroy() {
     // Get all classNames from the options and put them in an array,
@@ -84,6 +136,7 @@ class Parallazy {
   /**
    * Callback ofter plugin instance has been initialized
    * @memberof module:Parallazy
+   * @type {method}
    * @private
    * @param {HTMLElement} el
    */
@@ -106,6 +159,12 @@ class Parallazy {
     this.handleProgress(progress)
   }
 
+  /**
+   * Handle progress of element
+   * @param {object} progress
+   * @private
+   * @type {method}
+   */
   handleProgress(progress) {
     this.currentClasses(this.el, {
       x: inBound(progress.progressX),
@@ -118,6 +177,7 @@ class Parallazy {
    * Add live classNames. Adds `visibleX` and/or `visibleX` class depending on the visibility
    * @memberof module:Parallazy
    * @private
+   * @type {method}
    * @param {HTMLElement} el
    * @param {boolean} visible
    */
@@ -131,6 +191,7 @@ class Parallazy {
    * Checks if an item matches the required criteria to be visible
    * @memberof module:Parallazy
    * @private
+   * @type {method}
    * @param {HTMLElement} el
    * @returns {promise}
    */
