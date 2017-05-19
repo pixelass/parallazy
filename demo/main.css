@@ -2,7 +2,7 @@
   --bg: #fff;
   --box: #fff;
   --description: #555;
-  --parallazy: #fff;
+  --parallazy: #de5b55;
   --visible-x: #fea32b;
   --visible-y: #fc58fc;
   --visible-xy: #63ff86;
@@ -13,10 +13,10 @@
 body {
   margin: 0;
   background: var(--bg);
-  padding: 100px 100vw 100vh 0; /* stylelint-disable-line plugin/no-unsupported-browser-features */
+  padding: 100vh 100vw 100vh 0; /* stylelint-disable-line plugin/no-unsupported-browser-features */
 
   &::before {
-    content: '';
+    content: 'scroll';
     position: fixed;
     top: 0;
     right: 0;
@@ -26,6 +26,13 @@ body {
     border: 100px solid var(--bound);
     opacity: 0.25;
     z-index: 2;
+    font-size: 10vw; /* stylelint-disable-line plugin/no-unsupported-browser-features */
+
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    font-family: sans-serif;
   }
 
   &::after {
@@ -42,7 +49,7 @@ body {
 }
 
 :global(.box) {
-  width: 500vw; /* stylelint-disable-line plugin/no-unsupported-browser-features */
+  width: 200vw; /* stylelint-disable-line plugin/no-unsupported-browser-features */
   display: flex;
   flex-wrap: wrap;
   padding: 1em;
@@ -50,7 +57,7 @@ body {
 }
 
 :global(.description) {
-  width: 500vw; /* stylelint-disable-line plugin/no-unsupported-browser-features */
+  width: 200vw; /* stylelint-disable-line plugin/no-unsupported-browser-features */
   padding: 1em 1em 1em calc(100px + 1em);
   font-size: 1em;
   background: var(--description);
@@ -60,7 +67,7 @@ body {
 
 :global(.parallazy) {
   position: relative;
-  height: 20vh; /* stylelint-disable-line plugin/no-unsupported-browser-features */
+  height: 20vw; /* stylelint-disable-line plugin/no-unsupported-browser-features */
   flex: 0 1 20vw; /* stylelint-disable-line plugin/no-unsupported-browser-features */
   margin: 10px;
   display: flex;
@@ -68,12 +75,13 @@ body {
   align-content: center;
   justify-content: center;
   flex-wrap: wrap;
-  font-size: 2em;
+  font-size: 1em;
   font-family: monospace;
   font-weight: bolder;
   background: var(--parallazy);
   color: #000;
   overflow: hidden;
+  transition: background-color 0.25s ease-in-out;
 
   &:nth-child(3n + 2) {
     flex-basis: 30vw; /* stylelint-disable-line plugin/no-unsupported-browser-features */
@@ -107,7 +115,7 @@ body {
 }
 
 .visibleY {
-  background: var(--visible-x);
+  background: var(--visible-y);
 }
 
 .pluginLoaded {

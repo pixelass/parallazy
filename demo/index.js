@@ -71,7 +71,7 @@ examples.forEach(({selector, options, eases}) => {
     const ea = el.querySelector('.easing')
     const bar = el.querySelector('.bar')
     if (eases) {
-      ea.innerText = `${eases[i % eases.length]}`.split(/\s+/)[1].replace('(t)', '')
+      ea.innerText = `${eases[i % eases.length]}`.split(/\s+/)[1].split('(')[0]
     } else {
       ea.innerText = 'linear'
     }
