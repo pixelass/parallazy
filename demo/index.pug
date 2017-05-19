@@ -1,0 +1,31 @@
+doctype
+html
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="x-ua-compatible" content="ie=edge")
+    meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+    title Parallazy | A lazy parallax plugin
+    link(rel="icon"  type="image/png"  href="favico.png")
+    link(rel="stylesheet" href="main.css")
+  body
+    -
+      var descriptions = [
+        '<div>4 decimals</div><div>0 offset</div><div>Track while entering</div>',
+        '<div>6 decimals</div><div>100 offset</div><div>Track while entering</div><div>5 different easing functions</div>',
+        '<div>4 decimals</div><div>0 offset</div><div>Do not track while entering</div>',
+        '<div>6 decimals</div><div>100 offset</div><div>Do not track while entering</div><div>4 different easing functions</div>'
+      ]
+    - var sections = 0
+    while ++sections <= descriptions.length
+      .description!=descriptions[sections - 1]
+      .box(class=`examples_${sections}`)
+        - var items = 10
+        - var counter = items
+        while counter--
+          .parallazy(class=`example_${sections}`)
+            .inner
+              .bar
+              .easing
+              .perc-x
+              .perc-y
+    script(src="main.js")

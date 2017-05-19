@@ -9,6 +9,7 @@ import cssModulesify from 'css-modulesify'
 import cssNext from 'postcss-cssnext'
 import hmr from 'browserify-hmr'
 import shortid from './shortid'
+import renderPug from './render-pug'
 const demoFolder = path.join(__dirname, '../demo')
 const buildFolder = path.join(__dirname, '../docs')
 
@@ -20,7 +21,6 @@ const fileMap = {
 }
 // these files will be copied from the demoFolder to the buildFolder
 const demoFiles = [
-  'index.html',
   'favico.png'
 ]
 const inputFiles = Object.keys(fileMap)
@@ -37,6 +37,7 @@ const build = (watch = false) => {
     if (err) {
       throw err
     }
+    renderPug()
     // bash command to copy files
     const copyFiles = demoFiles.map(file => `cp ${path.join(demoFolder, file)} ${path.join(buildFolder, file)}`).join(';')
     exec(copyFiles, err => {

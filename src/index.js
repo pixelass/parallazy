@@ -29,6 +29,8 @@
  *     },
  *     decimals: 2,
  *     entering: false,
+ *     offsetX: 100,
+ *     offsetY: 20,
  *     onProgress(el, p) {
  *       el.style.setProperty('--progress-y', p.progressY)
  *     }
@@ -143,7 +145,8 @@ class Parallazy {
   onInit(el) {
     // Create namespaced eventnames
     const progress = parallize(el, {
-      offset: this.options.offset,
+      offsetX: this.options.offsetX,
+      offsetY: this.options.offsetY,
       entering: this.options.entering,
       decimals: this.options.decimals
     })
@@ -198,7 +201,8 @@ class Parallazy {
   checkForItems(el) {
     return new Promise((resolve, reject) => {
       const progress = parallize(el, {
-        offset: this.options.offset,
+        offsetX: this.options.offsetX,
+        offsetY: this.options.offsetY,
         entering: this.options.entering,
         decimals: this.options.decimals
       })

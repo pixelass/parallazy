@@ -1,73 +1,113 @@
 :root {
   --bg: #fff;
+  --box: #fff;
+  --description: #555;
+  --parallazy: #fff;
+  --visible-x: #fea32b;
+  --visible-y: #fc58fc;
+  --visible-xy: #63ff86;
+  --bar: #7ca0fb;
+  --bound: #000;
 }
 
 body {
   margin: 0;
   background: var(--bg);
+  padding: 100px 100vw 100vh 0; /* stylelint-disable-line plugin/no-unsupported-browser-features */
+
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+    border: 100px solid var(--bound);
+    opacity: 0.25;
+    z-index: 2;
+  }
+
+  &::after {
+    content: '';
+    position: fixed;
+    top: 100px;
+    right: 100px;
+    bottom: 100px;
+    left: 100px;
+    pointer-events: none;
+    border: 1px solid var(--bound);
+    z-index: 2;
+  }
 }
 
 :global(.box) {
   width: 500vw; /* stylelint-disable-line plugin/no-unsupported-browser-features */
   display: flex;
   flex-wrap: wrap;
-  padding: 50vh 100vw 100vh 50vw; /* stylelint-disable-line plugin/no-unsupported-browser-features */
+  padding: 1em;
+  background: var(--box);
+}
+
+:global(.description) {
+  width: 500vw; /* stylelint-disable-line plugin/no-unsupported-browser-features */
+  padding: 1em 1em 1em calc(100px + 1em);
+  font-size: 1em;
+  background: var(--description);
+  color: #fff;
+  font-family: sans-serif;
 }
 
 :global(.parallazy) {
   position: relative;
-  height: 300px;
-  flex: 0 1 300px;
+  height: 20vh; /* stylelint-disable-line plugin/no-unsupported-browser-features */
+  flex: 0 1 20vw; /* stylelint-disable-line plugin/no-unsupported-browser-features */
   margin: 10px;
   display: flex;
   align-items: center;
   align-content: center;
   justify-content: center;
   flex-wrap: wrap;
-  font-size: 4em;
+  font-size: 2em;
   font-family: monospace;
   font-weight: bolder;
-  background: #aaa;
-  color: #fff;
+  background: var(--parallazy);
+  color: #000;
   overflow: hidden;
-  border: 10px solid red;
 
   &:nth-child(3n + 2) {
-    flex-basis: 400px;
+    flex-basis: 30vw; /* stylelint-disable-line plugin/no-unsupported-browser-features */
   }
 
   &:nth-child(5n + 2) {
-    flex-basis: 500px;
-  }
-
-  & img {
-    width: 100%;
+    flex-basis: 40vw; /* stylelint-disable-line plugin/no-unsupported-browser-features */
   }
 }
 
-:global(.cover) {
+:global(.bar) {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  background: var(--bg);
-  transform-origin: 0 0;
-  transition: opacity 0.25s ease-in-out;
-  transform:
-    scale3d(
-      1,
-      calc(1 - var(--progress-y)),
-      1
-    );
+  background: var(--bar);
+  transform-origin: 0 100%;
+  z-index: 0;
+}
+
+:global(.perc-x),
+:global(.perc-y),
+:global(.easing) {
+  position: relative;
+  z-index: 1;
 }
 
 .visibleX {
-  border-color: orange;
+  background: var(--visible-x);
 }
 
 .visibleY {
-  border-color: orange;
+  background: var(--visible-x);
 }
 
 .pluginLoaded {
@@ -75,5 +115,5 @@ body {
 }
 
 .visibleX.visibleY {
-  border-color: green;
+  background: var(--visible-xy);
 }
