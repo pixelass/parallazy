@@ -2,13 +2,13 @@
 
 > A lazy parallax plugin
 
-[![npm](https://img.shields.io/npm/v/parallazy.svg)](https://www.npmjs.com/package/parallazy)
+[![npm](https://img.shields.io/npm/v/parallazy.svg?style=flat-square)](https://www.npmjs.com/package/parallazy)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/pixelass/parallazy/master/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/pixelass/parallazy.svg?style=flat-square)](https://github.com/pixelass/parallazy/issues)
-[![Coveralls](https://img.shields.io/coveralls/pixelass/parallazy.svg?style=flat-square)](https://coveralls.io/github/pixelass/npm-boilerplate)
+[![Coveralls](https://img.shields.io/coveralls/pixelass/parallazy.svg?style=flat-square)](https://coveralls.io/github/pixelass/parallazy)
 [![bitHound](https://img.shields.io/bithound/code/github/pixelass/parallazy.svg?style=flat-square)](https://www.bithound.io/github/pixelass/parallazy)
 [![bitHound](https://img.shields.io/bithound/devDependencies/github/pixelass/parallazy.svg?style=flat-square)](https://www.bithound.io/github/pixelass/parallazy)
-[![Inline docs](http://inch-ci.org/github/pixelass/parallazy.svg?branch=master)](http://inch-ci.org/github/pixelass/parallazy)
+[![Inline docs](http://inch-ci.org/github/pixelass/parallazy.svg?branch=master&style=flat-square)](http://inch-ci.org/github/pixelass/parallazy)
 
 [![Browserify](https://img.shields.io/badge/build-browserify-3c6991.svg?style=flat-square)](http://browserify.org/)
 [![Babel](https://img.shields.io/badge/babel-stage--2-f5da55.svg?style=flat-square)](http://babeljs.io/docs/plugins/preset-stage-2/)
