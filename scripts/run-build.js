@@ -32,6 +32,7 @@ const outFiles = inputFiles.map(file => {
 })
 
 const build = (watch = false) => {
+  const prod = process.env.NODE_ENV === 'production'
   globby(path.join(buildFolder, '*.{js,css,png,html}'))
     .then(files =>
       Promise.all(files.map(file => {
@@ -85,12 +86,11 @@ const build = (watch = false) => {
 
       b.on('log', message => log.info(message))
       b.on('error', message => log.error(message))
-
       b.plugin(cssModulesify, {
         after: [cssNext()],
         output: `${outFile}.css`,
         jsonOutput: `${outFile}.json`,
-        generateScopedName: watch ? cssModulesify.generateScopedName : shortid,
+        generateScopedName: prod ? shortid : cssModulesify.generateScopedName,
         global: true
       })
 

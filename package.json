@@ -26,8 +26,8 @@
   "license": "MIT",
   "main": "lib/index.js",
   "scripts": {
-    "babel": "BABEL_ENV=production babel src --out-dir lib --copy-files",
-    "build": "NODE_ENV=production babel-node ./scripts/build",
+    "babel": "cross-env BABEL_ENV=production && babel src --out-dir lib --copy-files",
+    "build": "cross-env NODE_ENV=production babel-node ./scripts/build",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "report": "nyc report --reporter=html",
     "docs": "rm -rf docs/api && mkdir docs/api && jsdoc -c jsdoc.json",
@@ -42,7 +42,7 @@
     "dev": "babel-node ./scripts/dev",
     "start": "npm run build && npm run server",
     "test": "nyc ava --tap | tap-nyan",
-    "watch": "NODE_ENV=development babel-node ./scripts/watch"
+    "watch": "babel-node ./scripts/watch"
   },
   "config": {
     "devPort": 3000,
