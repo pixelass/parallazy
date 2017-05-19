@@ -120,18 +120,18 @@ body::after {
   z-index: 1;
 }
 
-.a {
+._demo_main__visibleX {
   background: #fea32b;
 }
 
-.b {
+._demo_main__visibleY {
   background: #fc58fc;
 }
 
-.c {
+._demo_main__pluginLoaded {
   /* pluginLoaded */
 }
 
-.a.b {
+._demo_main__visibleX._demo_main__visibleY {
   background: #63ff86;
 }

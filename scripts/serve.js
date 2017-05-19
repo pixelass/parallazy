@@ -1,14 +1,17 @@
-import {exec} from 'child_process'
-import log from 'winston'
+import express from 'express'
+import path from 'path'
 import pkg from '../package.json'
 
-
 const serve = () => {
-  log.info(`starting server on http://localhost:${pkg.config.devPort}`)
-  exec(`cd docs && http-server -p ${pkg.config.devPort}`, err => {
-    if (err) {
-      throw err
-    }
+  const PORT = process.env.PORT || pkg.config.devPort
+  const app = express()
+  app.use(express.static('docs'))
+  app.set('view engine', 'pug')
+  app.get('/', function (req, res) {
+    res.render('index')
+  })
+  app.listen(PORT, function () {
+    console.log(`Example app listening on port ${PORT}!`)
   })
 }
 

@@ -2,7 +2,7 @@ import {writeFileSync} from 'fs'
 import path from 'path'
 import pug from 'pug'
 
-const src = path.join(__dirname, '../demo')
+const src = path.join(__dirname, '../views')
 const target = path.join(__dirname, '../docs')
 // add or remove files from this list
 // key: input file

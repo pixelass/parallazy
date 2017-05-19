@@ -1,4 +1,3 @@
-import {exec} from 'child_process'
 import {createWriteStream} from 'fs'
 import path from 'path'
 import log from 'winston'
@@ -8,6 +7,9 @@ import errorify from 'errorify'
 import cssModulesify from 'css-modulesify'
 import cssNext from 'postcss-cssnext'
 import hmr from 'browserify-hmr'
+import rm from 'rm-r'
+import copy from 'copy'
+import globby from 'globby'
 import shortid from './shortid'
 import renderPug from './render-pug'
 const demoFolder = path.join(__dirname, '../demo')
@@ -29,22 +31,29 @@ const outFiles = inputFiles.map(file => {
   return path.join(buildFolder, `${fileMap[file]}.js`)
 })
 
-// bash command to remove files
-const removeFiles = `rm -rf ${path.join(buildFolder, '*.{js,css,png,html}')}`
-
 const build = (watch = false) => {
-  exec(removeFiles, err => {
-    if (err) {
-      throw err
+  globby(path.join(buildFolder, '*.{js,css,png,html}'))
+    .then(files =>
+      Promise.all(files.map(file => {
+          rm.file(file, err => Promise.resolve())
+      }))
+    )
+  .catch(err => {
+    throw err
+  })
+  .then(() => {
+    if (watch) {
+      log.info('serving views')
+    } else {
+      log.info('writing HTML files')
+      renderPug()
     }
-    renderPug()
-    // bash command to copy files
-    const copyFiles = demoFiles.map(file => `cp ${path.join(demoFolder, file)} ${path.join(buildFolder, file)}`).join(';')
-    exec(copyFiles, err => {
+    demoFiles.forEach(file =>
+      copy(`${path.join(demoFolder, file)}`, buildFolder, {flatten: true}, err => {
       if (err) {
         throw err
       }
-    })
+    }))
 
     // create a bundler for each file
     inputFiles.forEach(file => {
