@@ -1,3 +1,8 @@
+/**
+ * @private
+ * @author Gregor Adams <greg@pixelass.com>
+ */
+
 import test from 'ava'
 import {inBound, minMax} from '../helpers'
 

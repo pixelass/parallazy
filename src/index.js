@@ -2,51 +2,6 @@
  * @file src/index.js
  * @author Gregor Adams <greg@pixelass.com>
  * @module Parallazy
- * @example
- * // import module from node_modules
- * import Parallazy from 'parallazy'
- *
- * // Get all elements as an array
- * const elements = Array.from(document.querySelectorAll('.parallazy'))
- *
- * // Create an Array of initialized instances
- * const parallazies = elements.map(el => {
- *   const parallazy = new Parallazy()
- *   parallazy.init(el)
- *   return parallazy
- * })
- *
- * // Create an Array of initialized instances,
- * // with custom configuration
- * const parallazies = elements.map(el => {
- *   // configure instance
- *   const parallazy = new Parallazy({
- *     classNames: {
- *       visibleX: styles.visibleX,
- *       visibleY: styles.visibleY,
- *       initiallyVisible: styles.initiallyVisible,
- *       pluginLoaded: styles.pluginLoaded
- *     },
- *     decimals: 2,
- *     entering: false,
- *     offsetX: 100,
- *     offsetY: 20,
- *     onProgress(el, p) {
- *       el.style.setProperty('--progress-y', p.progressY)
- *     }
- *   })
- *   // initialize instance
- *   parallazy.init(el)
- *   return parallazy
- * })
- *
- * // Destroy instances.
- * // create instance (with settings)
- * const parallazy = new Parallazy()
- * // Initialize instance.
- * parallazy.init(document.querySelector('.parallazy'))
- * // Destroy instance.
- * parallazy.destroy()
  */
 
 import {requestEventListener} from './event-listeners'
@@ -75,7 +30,14 @@ const PLUGIN_DEFAULTS = {
   offsetY: 0,
   decimals: 10,
   events: ['scroll', 'resize'],
-  onProgress() {}
+
+  /**
+   * callback function
+   * @param {HTMLelement} element
+   * @param {number} progress
+   * @returns {any}
+   */
+  onProgress(element, progress) { return {element, progress}}
 }
 
 class Parallazy {
@@ -84,6 +46,37 @@ class Parallazy {
    * @memberof module:Parallazy
    * @param {object} [options={}]
    * @returns {this}
+   * @example
+   * // import module from node_modules
+   * import Parallazy from 'parallazy'
+   *
+   * // Get all elements as an array
+   * const elements = Array.from(document.querySelectorAll('.parallazy'))
+   *
+   * // Create an Array of instances
+   * elements.map(el => {
+   *   const parallazy = new Parallazy()
+   * })
+   *
+   * // Create an Array of instances,
+   * // with custom configuration
+   * elements.map(el => {
+   *   const parallazy = new Parallazy({
+   *     classNames: {
+   *       visibleX: styles.visibleX,
+   *       visibleY: styles.visibleY,
+   *       initiallyVisible: styles.initiallyVisible,
+   *       pluginLoaded: styles.pluginLoaded
+   *     },
+   *     decimals: 2,
+   *     entering: false,
+   *     offsetX: 100,
+   *     offsetY: 20,
+   *     onProgress(el, p) {
+   *       el.style.setProperty('--progress-y', p.progressY)
+   *     }
+   *   })
+   * })
    */
   constructor(options = {}) {
     this.options = {...PLUGIN_DEFAULTS, ...options}
@@ -108,6 +101,9 @@ class Parallazy {
    * @memberof module:Parallazy
    * @type {method}
    * @param {HTMLElement} el
+   * @example
+   * const parallazy = new Parallazy()
+   * parallazy.init(document.querySelector('.parallazy'))
    */
   init(el) {
     const {pluginLoaded} = this.options.classNames
@@ -122,6 +118,10 @@ class Parallazy {
    * Removes all event listeners and element class names.
    * @memberof module:Parallazy
    * @type {method}
+   * @example
+   * const parallazy = new Parallazy()
+   * parallazy.init(document.querySelector('.parallazy'))
+   * parallazy.destroy()
    */
   destroy() {
     // Get all classNames from the options and put them in an array,

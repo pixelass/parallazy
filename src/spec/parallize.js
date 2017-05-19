@@ -1,7 +1,26 @@
+/**
+ * @private
+ * @author Gregor Adams <greg@pixelass.com>
+ */
+
 import test from 'ava'
 import parallize from '../parallize'
 
+/**
+ * A simple fake element that has a `getBoundingClientRect` method
+ * @param {number} [height=100]
+ * @param {number} [width=100]
+ * @param {number} [top=100]
+ * @param {number} [left=100]
+ * @private
+ * @returns {object}
+ */
 const fakeEl = (height = 100, width = 100, top = 100, left = 100) => ({
+  /**
+   * mock function for `element.getBoundingClientRect`
+   * @private
+   * @returns {object}
+   */
   getBoundingClientRect() {
     return {
       top,
@@ -14,6 +33,11 @@ const fakeEl = (height = 100, width = 100, top = 100, left = 100) => ({
   }
 })
 
+/**
+ * fake window
+ * @private
+ * @type {Object}
+ */
 global.window = {
   innerWidth: 1000,
   innerHeight: 1000

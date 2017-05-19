@@ -18,6 +18,20 @@ import {minMax} from './helpers'
  * @param {number} options.offsetY bounding box-y on viewPort
  * @param {number} options.decimals number of decimals to return
  * @returns {object} `{progressX: [0...1], progressY: [0...1]}`
+ * @type {function}
+ * @example
+ * const el = document.querySelector('.test')
+ * const {progressX, progressY} = parallize(el)
+ * const {progressX, progressY} = parallize(el, {
+ *   entering: false
+ * })
+ * const {progressX, progressY} = parallize(el, {
+ *   offsetX: 10,
+ *   offsetY: 100
+ * })
+ * const {progressX, progressY} = parallize(el, {
+ *   decimals: 10
+ * })
  */
 const parallize = (element, options = {}) => {
   const settings = {
