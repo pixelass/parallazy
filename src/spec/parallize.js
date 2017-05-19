@@ -14,12 +14,22 @@ import parallize from '../parallize'
  * @param {number} [left=100]
  * @private
  * @returns {object}
+ * @example
+ * fakeEl()
+ * fakeEl(20)
+ * fakeEl(300, 300)
+ * fakeEl(100, 100, 200)
+ * fakeEl(100, 100, 200, 200)
  */
 const fakeEl = (height = 100, width = 100, top = 100, left = 100) => ({
   /**
-   * mock function for `element.getBoundingClientRect`
+   * Mock function for `element.getBoundingClientRect`
    * @private
    * @returns {object}
+   * @example
+   * fakeEl().getBoundingClientRect().top // => 100
+   * fakeEl().getBoundingClientRect().bottom // => 200
+   * fakeEl(300).getBoundingClientRect().bottom // => 400
    */
   getBoundingClientRect() {
     return {
@@ -34,7 +44,7 @@ const fakeEl = (height = 100, width = 100, top = 100, left = 100) => ({
 })
 
 /**
- * fake window
+ * Fake window
  * @private
  * @type {Object}
  */

@@ -32,12 +32,19 @@ const PLUGIN_DEFAULTS = {
   events: ['scroll', 'resize'],
 
   /**
-   * callback function
+   * Callback function
    * @param {HTMLelement} element
    * @param {number} progress
    * @returns {any}
+   * @example
+   * onProgress(element, progress) {
+   *   el.setAttribute('data-progress-y', progress.progressY)
+   *   el.setAttribute('data-progress-x', progress.progressX)
+   * }
    */
-  onProgress(element, progress) { return {element, progress}}
+  onProgress(element, progress) {
+    return {element, progress}
+  }
 }
 
 class Parallazy {
@@ -88,6 +95,8 @@ class Parallazy {
    * @memberof module:Parallazy
    * @type {getter}
    * @returns {object}
+   * @example
+   * const methods = this.methods
    */
   get methods() {
     return {
@@ -141,6 +150,8 @@ class Parallazy {
    * @type {method}
    * @private
    * @param {HTMLElement} el
+   * @example
+   * this.onInit(this.el)
    */
   onInit(el) {
     // Create namespaced eventnames
@@ -167,6 +178,8 @@ class Parallazy {
    * @param {object} progress
    * @private
    * @type {method}
+   * @example
+   * this.handleProgress({progressX: 0, progressY: 0.3})
    */
   handleProgress(progress) {
     this.currentClasses(this.el, {
@@ -182,12 +195,14 @@ class Parallazy {
    * @private
    * @type {method}
    * @param {HTMLElement} el
-   * @param {boolean} visible
+   * @param {object} visible
+   * @example
+   * this.currentClasses(this.el, {x: true, y: false})
    */
-  currentClasses(element, visible) {
+  currentClasses(el, visible) {
     const {visibleX, visibleY} = this.options.classNames
-    element.classList.toggle(visibleX, visible.x)
-    element.classList.toggle(visibleY, visible.y)
+    el.classList.toggle(visibleX, visible.x)
+    el.classList.toggle(visibleY, visible.y)
   }
 
   /**
@@ -197,6 +212,8 @@ class Parallazy {
    * @type {method}
    * @param {HTMLElement} el
    * @returns {promise}
+   * @example
+   * this.checkForItems(this.el)
    */
   checkForItems(el) {
     return new Promise((resolve, reject) => {

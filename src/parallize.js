@@ -9,8 +9,7 @@
 import {minMax} from './helpers'
 
 /**
- * Checks visibility of element in viewport and returns offset
- * as numbers.
+ * Checks visibility of element in viewport and returns offset as numbers.
  * @param {HTMLElement} element
  * @param {object} options
  * @param {boolean} options.entering track while entering and leaving
