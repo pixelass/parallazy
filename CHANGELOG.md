@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/pixelass/parallazy/compare/v1.0.1...v2.0.0) (2017-05-20)
+
+
+### Bug Fixes
+
+* **dependencies:** add missing dependencies ([de7697f](https://github.com/pixelass/parallazy/commit/de7697f))
+* **process:** don't use child_process ([7be2ae8](https://github.com/pixelass/parallazy/commit/7be2ae8))
+
+
+### Features
+
+* **options:** better offset declaration ([a2bd4da](https://github.com/pixelass/parallazy/commit/a2bd4da))
+
+
+### BREAKING CHANGES
+
+* **options:** change in the API, return values changed
+
+
+
 <a name="1.0.1"></a>
 ## [1.0.1](https://github.com/pixelass/parallazy/compare/v1.0.0...v1.0.1) (2017-05-19)
 
