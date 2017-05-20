@@ -95,7 +95,6 @@ examples.forEach(({selector, options, eases}) => {
       classNames: {
         visibleX: styles.visibleX,
         visibleY: styles.visibleY,
-        initiallyVisible: styles.initiallyVisible,
         pluginLoaded: styles.pluginLoaded
       },
       onProgress(el, p) {

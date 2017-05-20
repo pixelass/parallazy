@@ -10,7 +10,6 @@ $('.parallazy').forEach(el => {
     classNames: {
       visibleX: styles.visibleX,
       visibleY: styles.visibleY,
-      initiallyVisible: styles.initiallyVisible,
       pluginLoaded: styles.pluginLoaded
     },
     entering: false,
