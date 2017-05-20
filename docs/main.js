@@ -2,7 +2,7 @@
 "use strict";function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e}}var _extends2=require("babel-runtime/helpers/extends"),_extends3=_interopRequireDefault(_extends2),_from=require("babel-runtime/core-js/array/from"),_from2=_interopRequireDefault(_from),_easingUtils=require("easing-utils"),_src=require("../src"),_src2=_interopRequireDefault(_src),_main=require("./main.css"),_main2=_interopRequireDefault(_main),examples=[{selector:".example_1",eases:[_easingUtils.easeInCubic,_easingUtils.easeOutQuad,_easingUtils.easeInOutElastic,_easingUtils.easeOutSine,_easingUtils.easeInSine],options:{decimals:4,entering:!0,offset:{top:0,bottom:0,left:0,right:0}}},{selector:".example_2",options:{decimals:6,entering:!0,offset:{top:100,bottom:100,left:100,right:100}}},{selector:".example_3",options:{decimals:4,entering:!1,offset:{top:0,bottom:100,left:0,right:100}}},{selector:".example_4",eases:[_easingUtils.easeInCubic,_easingUtils.easeInOutSine,_easingUtils.easeOutSine,_easingUtils.easeInOutElastic],options:{decimals:6,entering:!1,offset:{top:100,bottom:100,left:100,right:100}}}];examples.forEach(function(e){var t=e.selector,i=e.options,s=e.eases;(0,_from2.default)(document.querySelectorAll(t)).forEach(function(e,t){var n=s?s[t%s.length]:function(e){return e},a=e.querySelector(".perc-x"),l=e.querySelector(".perc-y"),r=e.querySelector(".easing"),o=e.querySelector(".bar");r.innerText=s?(""+s[t%s.length]).split(/\s+/)[1].split("(")[0]:"linear",new _src2.default((0,_extends3.default)({classNames:{visibleX:_main2.default.visibleX,visibleY:_main2.default.visibleY,initiallyVisible:_main2.default.initiallyVisible,pluginLoaded:_main2.default.pluginLoaded},onProgress:function(e,t){a.innerText=(100*n(t.left)).toFixed(i.decimals-2)+"% : "+(100*n(t.right)).toFixed(i.decimals-2)+"%",l.innerText=(100*n(t.top)).toFixed(i.decimals-2)+"% : "+(100*n(t.bottom)).toFixed(i.decimals-2)+"%",o.style.transform="scale3d(1, "+n(t.top)+", 1)"}},i)).init(e)})});
 
 },{"../src":116,"./main.css":2,"babel-runtime/core-js/array/from":3,"babel-runtime/helpers/extends":12,"easing-utils":106}],2:[function(require,module,exports){
-module.exports = {"visibleX":"d","visibleY":"e","pluginLoaded":"f"}
+module.exports = {"visibleX":"a","visibleY":"b","pluginLoaded":"c"}
 },{}],3:[function(require,module,exports){
 module.exports={default:require("core-js/library/fn/array/from"),__esModule:!0};
 
@@ -168,6 +168,7 @@ var global=require("./_global"),macrotask=require("./_task").set,Observer=global
 
 },{"./_fails":38,"./_iobject":46,"./_object-gops":67,"./_object-keys":70,"./_object-pie":71,"./_to-object":87}],61:[function(require,module,exports){
 var anObject=require("./_an-object"),dPs=require("./_object-dps"),enumBugKeys=require("./_enum-bug-keys"),IE_PROTO=require("./_shared-key")("IE_PROTO"),Empty=function(){},PROTOTYPE="prototype",createDict=function(){var e,t=require("./_dom-create")("iframe"),r=enumBugKeys.length;for(t.style.display="none",require("./_html").appendChild(t),t.src="javascript:",e=t.contentWindow.document,e.open(),e.write("<script>document.F=Object<\/script>"),e.close(),createDict=e.F;r--;)delete createDict[PROTOTYPE][enumBugKeys[r]];return createDict()};module.exports=Object.create||function(e,t){var r;return null!==e?(Empty[PROTOTYPE]=anObject(e),r=new Empty,Empty[PROTOTYPE]=null,r[IE_PROTO]=e):r=createDict(),void 0===t?r:dPs(r,t)};
+
 },{"./_an-object":25,"./_dom-create":34,"./_enum-bug-keys":35,"./_html":43,"./_object-dps":63,"./_shared-key":78}],62:[function(require,module,exports){
 var anObject=require("./_an-object"),IE8_DOM_DEFINE=require("./_ie8-dom-define"),toPrimitive=require("./_to-primitive"),dP=Object.defineProperty;exports.f=require("./_descriptors")?Object.defineProperty:function(e,r,t){if(anObject(e),r=toPrimitive(r,!0),anObject(t),IE8_DOM_DEFINE)try{return dP(e,r,t)}catch(e){}if("get"in t||"set"in t)throw TypeError("Accessors not supported!");return"value"in t&&(e[r]=t.value),e};
 
@@ -215,7 +216,6 @@ var def=require("./_object-dp").f,has=require("./_has"),TAG=require("./_wks")("t
 
 },{"./_has":41,"./_object-dp":62,"./_wks":92}],78:[function(require,module,exports){
 var shared=require("./_shared")("keys"),uid=require("./_uid");module.exports=function(e){return shared[e]||(shared[e]=uid(e))};
-
 },{"./_shared":79,"./_uid":89}],79:[function(require,module,exports){
 var global=require("./_global"),SHARED="__core-js_shared__",store=global[SHARED]||(global[SHARED]={});module.exports=function(o){return store[o]||(store[o]={})};
 
