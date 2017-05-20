@@ -22,7 +22,7 @@ $('.parallazy').forEach((el, i) => {
     },
     decimals: 6,
     onProgress(el, p) {
-      const offset = (Math.pow(p.progressY, (i % 4) + 1) * 100).toFixed(4)
+      const offset = (Math.pow(p.top, (i % 4) + 1) * 100).toFixed(4)
       $inner[0].style.transform = `translate3d(${offset}%,0,0)`
     }
   })
