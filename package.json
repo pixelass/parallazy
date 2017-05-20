@@ -33,7 +33,7 @@
     "docs": "babel-node ./scripts/jsdoc && jsdoc -c jsdoc.json",
     "lint": "npm run eslint; npm run stylelint",
     "stylelint": "stylelint {demo,src}/**/*.{css,less,scss}",
-    "eslint": "xo '{demo,src}/**/*.js'",
+    "eslint": "xo '{scripts,demo,src}/**/*.js'",
     "prepush": "npm test",
     "prerelease": "npm run babel; npm test",
     "posttest": "npm run lint",
