@@ -25,7 +25,7 @@
 - [Links](#links)
 - [Usage](#usage)
   * [Multiple instances](#multiple-instances)
-  * [Custom options](#custom-options)
+  * [Options](#options)
   * [Destroy](#destroy)
 - [Developing](#developing)
 
@@ -55,7 +55,26 @@ const parallazies = elements.map(el => {
 })
 ```
 
-### Custom options
+### Options
+
+* `{object}` **`classNames`**
+  * `{string}` **`classNames.visibleX`**
+  * `{string}` **`classNames.visibleY`**
+  * `{string}` **`classNames.pluginLoaded`**
+* `{boolean}` **`entering`**
+* `{object}` **`offset`**
+  * `{number}` **`offset.top`**
+  * `{number}` **`offset.right`**
+  * `{number}` **`offset.bottom`**
+  * `{number}` **`offset.left`**
+* `{number}` **`decimals`**
+* `{array.<string>}` **`events`**
+* `{function|null}` **`onProgress`**
+* `{function|null}` **`onTop`**
+* `{function|null}` **`onRight`**
+* `{function|null}` **`onBottom`**
+* `{function|null}` **`onLeft`**
+
 
 ```js
 import Parallazy from 'parallazy'
@@ -68,7 +87,6 @@ const parallazies = elements.map(el => {
     classNames: {
       visibleX: styles.visibleX,
       visibleY: styles.visibleY,
-      initiallyVisible: styles.initiallyVisible,
       pluginLoaded: styles.pluginLoaded
     },
     offset: {
@@ -77,8 +95,14 @@ const parallazies = elements.map(el => {
     },
     decimals: 2,
     entering: false,
-    onProgress(el, {top}) {
+    onProgress({top}) {
       el.style.setProperty('--progress-y', top)
+    },
+    onTop() {
+      el.style.setProperty('--progress-y', 1)
+    },
+    onBottom() {
+      el.style.setProperty('--progress-y', 0)
     }
   })
   // initialize instance
