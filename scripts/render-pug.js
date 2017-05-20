@@ -7,7 +7,7 @@ const src = path.join(__dirname, '../views')
 const target = path.join(__dirname, '../docs')
 
 const renderPug = () => {
-  // render all views
+  // Render all views
   globby(path.join(src, '*.pug')).then(files => {
     files.forEach(file => {
       const {name} = path.parse(file)

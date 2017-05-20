@@ -12,32 +12,30 @@ import copy from 'copy'
 import globby from 'globby'
 import shortid from './shortid'
 import renderPug from './render-pug'
+
 const demoFolder = path.join(__dirname, '../demo')
 const buildFolder = path.join(__dirname, '../docs')
 
-// add or remove files from this list
+// Add or remove files from this list
 // key: input file
 // value: output name (used for css and js)
 const fileMap = {
   'index.js': 'main',
   'examples-1.js': 'examples-1'
 }
-// these files will be copied from the demoFolder to the buildFolder
+// These files will be copied from the demoFolder to the buildFolder
 const demoFiles = [
   'favico.png'
 ]
 const inputFiles = Object.keys(fileMap)
-
-const outFiles = inputFiles.map(file => {
-  return path.join(buildFolder, `${fileMap[file]}.js`)
-})
 
 const build = (watch = false) => {
   const prod = process.env.NODE_ENV === 'production'
   globby(path.join(buildFolder, '*.{js,css,png,html}'))
     .then(files =>
       Promise.all(files.map(file => {
-          rm.file(file, err => Promise.resolve())
+        rm.file(file)
+        return Promise.resolve()
       }))
     )
   .catch(err => {
@@ -52,12 +50,12 @@ const build = (watch = false) => {
     }
     demoFiles.forEach(file =>
       copy(`${path.join(demoFolder, file)}`, buildFolder, {flatten: true}, err => {
-      if (err) {
-        throw err
-      }
-    }))
+        if (err) {
+          throw err
+        }
+      }))
 
-    // create a bundler for each file
+    // Create a bundler for each file
     inputFiles.forEach(file => {
       const inFile = path.join(demoFolder, file)
       const outFile = path.join(buildFolder, fileMap[file])
@@ -72,13 +70,12 @@ const build = (watch = false) => {
         b.bundle().pipe(createWriteStream(`${outFile}.js`))
       }
 
-      // either uglify or watch
+      // Either uglify or watch
       if (watch) {
         b.on('update', bundle)
         b.plugin(watchify)
-        // b.plugin(hmr)
-      }
-      else {
+        b.plugin(hmr)
+      } else {
         b.transform({
           global: true,
           ignore: ['**/*.css']

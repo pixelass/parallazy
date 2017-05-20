@@ -1,6 +1,6 @@
 import Abcq from 'abcq'
 
-function shortid() {
+function Shortid() {
   const shortid = new Abcq()
   this.names = {}
   return (name, file) => {
@@ -13,4 +13,4 @@ function shortid() {
   }
 }
 
-export default new shortid()
+export default new Shortid()
