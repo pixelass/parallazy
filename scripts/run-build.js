@@ -10,6 +10,7 @@ import hmr from 'browserify-hmr'
 import rm from 'rm-r'
 import copy from 'copy'
 import globby from 'globby'
+import {config} from '../package.json' // eslint-disable-line import/extensions
 import shortid from './shortid'
 import renderPug from './render-pug'
 
@@ -56,7 +57,7 @@ const build = (watch = false) => {
       }))
 
     // Create a bundler for each file
-    inputFiles.forEach(file => {
+    inputFiles.forEach((file, index) => {
       const inFile = path.join(demoFolder, file)
       const outFile = path.join(buildFolder, fileMap[file])
 
@@ -74,7 +75,9 @@ const build = (watch = false) => {
       if (watch) {
         b.on('update', bundle)
         b.plugin(watchify)
-        b.plugin(hmr)
+        const port = config.devPort + 2 + index
+        const url = `http://localhost:${port}`
+        b.plugin(hmr, {url, port})
       } else {
         b.transform({
           global: true,
