@@ -101,6 +101,7 @@ body {
   background: var(--bar);
   transform-origin: 0 100%;
   z-index: 0;
+  transform: scale3d(1, 0, 1);
 }
 
 :global(.perc-x),

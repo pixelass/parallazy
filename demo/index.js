@@ -24,8 +24,12 @@ const examples = [
     options: {
       decimals: 4,
       entering: true,
-      offsetX: 0,
-      offsetY: 0
+      offset: {
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0
+      }
     }
   },
   {
@@ -33,8 +37,12 @@ const examples = [
     options: {
       decimals: 6,
       entering: true,
-      offsetX: 100,
-      offsetY: 100
+      offset: {
+        top: 100,
+        bottom: 100,
+        left: 100,
+        right: 100
+      }
     }
   },
   {
@@ -42,8 +50,12 @@ const examples = [
     options: {
       decimals: 4,
       entering: false,
-      offsetX: 0,
-      offsetY: 0
+      offset: {
+        top: 0,
+        bottom: 100,
+        left: 0,
+        right: 100
+      }
     }
   },
   {
@@ -57,8 +69,12 @@ const examples = [
     options: {
       decimals: 6,
       entering: false,
-      offsetX: 100,
-      offsetY: 100
+      offset: {
+        top: 100,
+        bottom: 100,
+        left: 100,
+        right: 100
+      }
     }
   }
 ]
@@ -83,9 +99,9 @@ examples.forEach(({selector, options, eases}) => {
         pluginLoaded: styles.pluginLoaded
       },
       onProgress(el, p) {
-        pX.innerText = `${(easing(p.progressX) * 100).toFixed(options.decimals - 2)}%`
-        pY.innerText = `${(easing(p.progressY) * 100).toFixed(options.decimals - 2)}%`
-        bar.style.transform = `scale3d(1, ${easing(p.progressY)}, 1)`
+        pX.innerText = `${(easing(p.left) * 100).toFixed(options.decimals - 2)}% : ${(easing(p.right) * 100).toFixed(options.decimals - 2)}%`
+        pY.innerText = `${(easing(p.top) * 100).toFixed(options.decimals - 2)}% : ${(easing(p.bottom) * 100).toFixed(options.decimals - 2)}%`
+        bar.style.transform = `scale3d(1, ${easing(p.top)}, 1)`
       },
       ...options
     })

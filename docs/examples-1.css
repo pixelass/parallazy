@@ -1,0 +1,68 @@
+
+body {
+  margin: 0;
+  padding: 100vh 0; /* stylelint-disable-line plugin/no-unsupported-browser-features */
+}
+
+.box {
+  box-sizing: border-box;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  padding: 1em;
+  overflow: hidden;
+}
+
+.parallazy {
+  position: relative;
+  height: 200px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 100px;
+          flex: 1 1 100px;
+  margin: 20px;
+  background: #222;
+  overflow: hidden
+}
+
+.parallazy:nth-child(2n + 1) {
+  -ms-flex-preferred-size: 200px;
+      flex-basis: 200px;
+}
+
+.parallazy:nth-child(3n + 1) {
+  -ms-flex-preferred-size: 300px;
+      flex-basis: 300px;
+}
+
+.parallazy:nth-child(5n + 1) {
+  -ms-flex-preferred-size: 400px;
+      flex-basis: 400px;
+}
+
+.inner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #fd7d40;
+}
+
+.a {
+  /* visibleX */
+}
+
+.b {
+  /* visibleY */
+}
+
+.a.b {
+  /* visibleX & visibleY */
+}
+
+.c {
+  /* pluginLoaded */
+}

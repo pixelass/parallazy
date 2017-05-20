@@ -1,0 +1,60 @@
+
+body {
+  margin: 0;
+  padding: 100vh 0; /* stylelint-disable-line plugin/no-unsupported-browser-features */
+}
+
+:global(.box) {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1em;
+  overflow: hidden;
+}
+
+:global(.parallazy) {
+  position: relative;
+  height: 200px;
+  flex: 1 1 100px;
+  margin: 20px;
+  background: #222;
+  overflow: hidden;
+
+  &:nth-child(2n + 1) {
+    flex-basis: 200px;
+  }
+
+  &:nth-child(3n + 1) {
+    flex-basis: 300px;
+  }
+
+  &:nth-child(5n + 1) {
+    flex-basis: 400px;
+  }
+}
+
+:global(.inner) {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #fd7d40;
+}
+
+.visibleX {
+  /* visibleX */
+}
+
+.visibleY {
+  /* visibleY */
+}
+
+.visibleX.visibleY {
+  /* visibleX & visibleY */
+}
+
+.pluginLoaded {
+  /* pluginLoaded */
+}
