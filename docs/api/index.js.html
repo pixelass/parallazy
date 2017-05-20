@@ -21,7 +21,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav class="main-nav">
-    <header class="nav-header"><h2><a href="index.html">Home</a></h2></header><header class="nav-header"><h3><span>Classes</span></h3></header><ul><li><a href="module-Parallazy.Parallazy.html">Parallazy</a></li></ul><header class="nav-header"><h3><span>Modules</span></h3></header><ul><li><a href="module-helpers.html">helpers</a><ul class='methods'><li class='nav-type-header'>Methods</li><li data-type='method'><a href="module-helpers.html#~inBound">inBound</a></li><li data-type='method'><a href="module-helpers.html#~minMax">minMax</a></li></ul></li><li><a href="module-Parallazy.html">Parallazy</a><ul class='members'><li class='nav-type-header'>Members</li><li data-type='member'><a href="module-Parallazy.html#.Parallazy#methods">Parallazy#methods</a></li><li data-type='member'><a href="module-Parallazy.html#.PLUGIN_DEFAULTS">PLUGIN_DEFAULTS</a></li><li data-type='member'><a href="module-Parallazy.html#.PLUGIN_NAME">PLUGIN_NAME</a></li></ul><ul class='methods'><li class='nav-type-header'>Methods</li><li data-type='method'><a href="module-Parallazy.html#.Parallazy#destroy">Parallazy#destroy</a></li><li data-type='method'><a href="module-Parallazy.html#.Parallazy#init">Parallazy#init</a></li></ul></li><li><a href="module-parallize.html">parallize</a><ul class='methods'><li class='nav-type-header'>Methods</li><li data-type='method'><a href="module-parallize.html#~parallize">parallize</a></li></ul></li></ul>
+    <header class="nav-header"><h2><a href="index.html">Home</a></h2></header><header class="nav-header"><h3><span>Classes</span></h3></header><ul><li><a href="module-Parallazy.Parallazy.html">Parallazy</a></li></ul><header class="nav-header"><h3><span>Modules</span></h3></header><ul><li><a href="module-helpers.html">helpers</a><ul class='methods'><li class='nav-type-header'>Methods</li><li data-type='method'><a href="module-helpers.html#~inBound">inBound</a></li><li data-type='method'><a href="module-helpers.html#~isCallback">isCallback</a></li><li data-type='method'><a href="module-helpers.html#~minMax">minMax</a></li></ul></li><li><a href="module-Parallazy.html">Parallazy</a><ul class='members'><li class='nav-type-header'>Members</li><li data-type='member'><a href="module-Parallazy.html#.Parallazy#methods">Parallazy#methods</a></li><li data-type='member'><a href="module-Parallazy.html#.PLUGIN_DEFAULTS">PLUGIN_DEFAULTS</a></li><li data-type='member'><a href="module-Parallazy.html#.PLUGIN_NAME">PLUGIN_NAME</a></li></ul><ul class='methods'><li class='nav-type-header'>Methods</li><li data-type='method'><a href="module-Parallazy.html#.Parallazy#destroy">Parallazy#destroy</a></li><li data-type='method'><a href="module-Parallazy.html#.Parallazy#init">Parallazy#init</a></li></ul></li><li><a href="module-parallize.html">parallize</a><ul class='methods'><li class='nav-type-header'>Methods</li><li data-type='method'><a href="module-parallize.html#~parallize">parallize</a></li></ul></li></ul>
 </nav>
 
 <main id="main" class="main-content">
@@ -43,7 +43,7 @@
  */
 
 import {requestEventListener} from './event-listeners'
-import {inBound, minMax} from './helpers'
+import {inBound, minMax, isCallback} from './helpers'
 import parallize from './parallize'
 
 /**
@@ -56,68 +56,44 @@ const PLUGIN_NAME = 'Parallazy'
 /**
  * Default options for plugin instances
  * @memberof module:Parallazy
+ * @prop {object} classNames
+ * @prop {string} classNames.visibleX
+ * @prop {string} classNames.visibleY
+ * @prop {string} classNames.pluginLoaded
+ * @prop {boolean} entering
+ * @prop {object} offset
+ * @prop {number} offset.top
+ * @prop {number} offset.right
+ * @prop {number} offset.bottom
+ * @prop {number} offset.left
+ * @prop {number} decimals
+ * @prop {array.&lt;string>} events
+ * @prop {function|null} onProgress
+ * @prop {function|null} onTop
+ * @prop {function|null} onRight
+ * @prop {function|null} onBottom
+ * @prop {function|null} onLeft
  */
 const PLUGIN_DEFAULTS = {
   classNames: {
     visibleX: 'visible-x',
     visibleY: 'visible-y',
-    pluginLoaded: 'peekabooLoaded'
+    pluginLoaded: 'pluginLoaded'
   },
   entering: true,
-  offsetX: 0,
-  offsetY: 0,
+  offset: {
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0
+  },
   decimals: 10,
   events: ['scroll', 'resize'],
-
-  /**
-   * Callback function
-   * @param {number} progress
-   * @returns {any}
-   * @example
-   * onProgress(progress) {
-   *   el.setAttribute('data-progress-y', progress.top)
-   *   el.setAttribute('data-progress-x', progress.left)
-   * }
-   */
-  onProgress(progress) {
-    return progress
-  },
-  /**
-   * Callback function.
-   * Called while element is above view.
-   * @example
-   * onTop() {
-   *   console.log('above view')
-   * }
-   */
-  onTop() {},
-  /**
-   * Callback function.
-   * Called while element is right of view.
-   * @example
-   * onRight() {
-   *   console.log('right of view')
-   * }
-   */
-  onRight() {},
-  /**
-   * Callback function.
-   * Called while element is below view.
-   * @example
-   * onBottom() {
-   *   console.log('below view')
-   * }
-   */
-  onBottom() {},
-  /**
-   * Callback function.
-   * Called while element is left of view.
-   * @example
-   * onLeft() {
-   *   console.log('left of view')
-   * }
-   */
-  onLeft() {}
+  onProgress: null,
+  onTop: null,
+  onRight: null,
+  onBottom: null,
+  onLeft: null
 }
 
 class Parallazy {
@@ -145,7 +121,6 @@ class Parallazy {
    *     classNames: {
    *       visibleX: styles.visibleX,
    *       visibleY: styles.visibleY,
-   *       initiallyVisible: styles.initiallyVisible,
    *       pluginLoaded: styles.pluginLoaded
    *     },
    *     decimals: 4,
@@ -251,7 +226,7 @@ class Parallazy {
           .catch(err => err)
       })
     })
-    this.handleProgress(progress, true)
+    this.handleProgress(progress)
   }
 
   /**
@@ -261,19 +236,18 @@ class Parallazy {
    * @type {method}
    * @example
    * this.handleProgress({top: 0, left: 0.3, right: 0.7, bottom 1})
-   * this.handleProgress(progress, true)
    */
-  handleProgress(progress, force = false) {
+  handleProgress(progress) {
     const {decimals} = this.options
     const decimalBound = (1 / (Math.pow(10, decimals)))
-    const min = force ? 0 : -1 * decimalBound
-    const max = force ? 1 : 1 + decimalBound
+    const min = -1 * decimalBound
+    const max = 1 + decimalBound
     const bound = {
       x: inBound(progress.right, max, min),
       y: inBound(progress.bottom, max, min)
     }
     this.currentClasses(bound)
-    if ((bound.x &amp;&amp; bound.y) || force) {
+    if (isCallback(this.options.onProgress) &amp;&amp; (bound.x &amp;&amp; bound.y)) {
       this.options.onProgress({
         top: minMax(progress.top),
         right: minMax(progress.right),
@@ -281,15 +255,15 @@ class Parallazy {
         left: minMax(progress.left)
       })
     } else if (bound.x) {
-      if (progress.top > 1) {
+      if (isCallback(this.options.onTop) &amp;&amp; (progress.top > 1)) {
         this.options.onTop()
-      } else if (progress.top &lt; 0) {
+      } else if (isCallback(this.options.onBottom) &amp;&amp; (progress.top &lt; 0)) {
         this.options.onBottom()
       }
     } else if (bound.y) {
-      if (progress.left > 1) {
+      if (isCallback(this.options.onLeft) &amp;&amp; (progress.left > 1)) {
         this.options.onLeft()
-      } else if (progress.left &lt; 0) {
+      } else if (isCallback(this.options.onRight) &amp;&amp; (progress.left &lt; 0)) {
         this.options.onRight()
       }
     }
@@ -350,7 +324,7 @@ export default Parallazy
 
 
 <footer class="main-footer">
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat May 20 2017 21:10:56 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat May 20 2017 21:45:44 GMT+0200 (CEST)
 </footer>
 
 <script>prettyPrint();</script>

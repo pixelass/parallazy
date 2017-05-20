@@ -21,7 +21,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav class="main-nav">
-    <header class="nav-header"><h2><a href="index.html">Home</a></h2></header><header class="nav-header"><h3><span>Classes</span></h3></header><ul><li><a href="module-Parallazy.Parallazy.html">Parallazy</a></li></ul><header class="nav-header"><h3><span>Modules</span></h3></header><ul><li><a href="module-helpers.html">helpers</a><ul class='methods'><li class='nav-type-header'>Methods</li><li data-type='method'><a href="module-helpers.html#~inBound">inBound</a></li><li data-type='method'><a href="module-helpers.html#~minMax">minMax</a></li></ul></li><li><a href="module-Parallazy.html">Parallazy</a><ul class='members'><li class='nav-type-header'>Members</li><li data-type='member'><a href="module-Parallazy.html#.Parallazy#methods">Parallazy#methods</a></li><li data-type='member'><a href="module-Parallazy.html#.PLUGIN_DEFAULTS">PLUGIN_DEFAULTS</a></li><li data-type='member'><a href="module-Parallazy.html#.PLUGIN_NAME">PLUGIN_NAME</a></li></ul><ul class='methods'><li class='nav-type-header'>Methods</li><li data-type='method'><a href="module-Parallazy.html#.Parallazy#destroy">Parallazy#destroy</a></li><li data-type='method'><a href="module-Parallazy.html#.Parallazy#init">Parallazy#init</a></li></ul></li><li><a href="module-parallize.html">parallize</a><ul class='methods'><li class='nav-type-header'>Methods</li><li data-type='method'><a href="module-parallize.html#~parallize">parallize</a></li></ul></li></ul>
+    <header class="nav-header"><h2><a href="index.html">Home</a></h2></header><header class="nav-header"><h3><span>Classes</span></h3></header><ul><li><a href="module-Parallazy.Parallazy.html">Parallazy</a></li></ul><header class="nav-header"><h3><span>Modules</span></h3></header><ul><li><a href="module-helpers.html">helpers</a><ul class='methods'><li class='nav-type-header'>Methods</li><li data-type='method'><a href="module-helpers.html#~inBound">inBound</a></li><li data-type='method'><a href="module-helpers.html#~isCallback">isCallback</a></li><li data-type='method'><a href="module-helpers.html#~minMax">minMax</a></li></ul></li><li><a href="module-Parallazy.html">Parallazy</a><ul class='members'><li class='nav-type-header'>Members</li><li data-type='member'><a href="module-Parallazy.html#.Parallazy#methods">Parallazy#methods</a></li><li data-type='member'><a href="module-Parallazy.html#.PLUGIN_DEFAULTS">PLUGIN_DEFAULTS</a></li><li data-type='member'><a href="module-Parallazy.html#.PLUGIN_NAME">PLUGIN_NAME</a></li></ul><ul class='methods'><li class='nav-type-header'>Methods</li><li data-type='method'><a href="module-Parallazy.html#.Parallazy#destroy">Parallazy#destroy</a></li><li data-type='method'><a href="module-Parallazy.html#.Parallazy#init">Parallazy#init</a></li></ul></li><li><a href="module-parallize.html">parallize</a><ul class='methods'><li class='nav-type-header'>Methods</li><li data-type='method'><a href="module-parallize.html#~parallize">parallize</a></li></ul></li></ul>
 </nav>
 
 <main id="main" class="main-content">
@@ -87,7 +87,30 @@ const parallazies = elements.map(el => {
   const parallazy = new Parallazy()
   parallazy.init(el)
   return parallazy
-})</code></pre><h3>Custom options</h3><pre class="prettyprint source lang-js"><code>import Parallazy from 'parallazy'
+})</code></pre><h3>Options</h3><ul>
+<li><code>{object}</code> <strong><code>classNames</code></strong><ul>
+<li><code>{string}</code> <strong><code>classNames.visibleX</code></strong></li>
+<li><code>{string}</code> <strong><code>classNames.visibleY</code></strong></li>
+<li><code>{string}</code> <strong><code>classNames.pluginLoaded</code></strong></li>
+</ul>
+</li>
+<li><code>{boolean}</code> <strong><code>entering</code></strong></li>
+<li><code>{object}</code> <strong><code>offset</code></strong><ul>
+<li><code>{number}</code> <strong><code>offset.top</code></strong></li>
+<li><code>{number}</code> <strong><code>offset.right</code></strong></li>
+<li><code>{number}</code> <strong><code>offset.bottom</code></strong></li>
+<li><code>{number}</code> <strong><code>offset.left</code></strong></li>
+</ul>
+</li>
+<li><code>{number}</code> <strong><code>decimals</code></strong></li>
+<li><code>{array.&lt;string&gt;}</code> <strong><code>events</code></strong></li>
+<li><code>{function|null}</code> <strong><code>onProgress</code></strong></li>
+<li><code>{function|null}</code> <strong><code>onTop</code></strong></li>
+<li><code>{function|null}</code> <strong><code>onRight</code></strong></li>
+<li><code>{function|null}</code> <strong><code>onBottom</code></strong></li>
+<li><code>{function|null}</code> <strong><code>onLeft</code></strong></li>
+</ul>
+<pre class="prettyprint source lang-js"><code>import Parallazy from 'parallazy'
 
 const elements = Array.from(document.querySelectorAll('.parallazy'))
 
@@ -97,7 +120,6 @@ const parallazies = elements.map(el => {
     classNames: {
       visibleX: styles.visibleX,
       visibleY: styles.visibleY,
-      initiallyVisible: styles.initiallyVisible,
       pluginLoaded: styles.pluginLoaded
     },
     offset: {
@@ -106,8 +128,14 @@ const parallazies = elements.map(el => {
     },
     decimals: 2,
     entering: false,
-    onProgress(el, {top}) {
+    onProgress({top}) {
       el.style.setProperty('--progress-y', top)
+    },
+    onTop() {
+      el.style.setProperty('--progress-y', 1)
+    },
+    onBottom() {
+      el.style.setProperty('--progress-y', 0)
     }
   })
   // initialize instance
@@ -143,7 +171,7 @@ parallazy.destroy()</code></pre><h2>Developing</h2><p>To start a dev server and 
 
 
 <footer class="main-footer">
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat May 20 2017 21:10:56 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat May 20 2017 21:45:44 GMT+0200 (CEST)
 </footer>
 
 <script>prettyPrint();</script>
