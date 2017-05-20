@@ -21,6 +21,21 @@
 const minMax = (n, max = 1, min = 0) => Math.max(min, Math.min(max, n))
 
 /**
+ * Checks if an identifier is a valid function
+ * @param {any} identifier
+ * @returns {boolean}
+ * @example
+ * isCallback(1) // => false
+ * isCallback('foo') // => false
+ * isCallback({}) // => false
+ * isCallback([]) // => false
+ * isCallback(null) // => false
+ * isCallback(true) // => false
+ * isCallback(() => {}) // => true
+ */
+const isCallback = identifier => typeof identifier === 'function'
+
+/**
  * Checks if a number is within a bound
  * @param {number} n
  * @param {number} [max=1]
@@ -42,5 +57,6 @@ const inBound = (n, max = 1, min = 0) => n > min && n < max
 
 export {
   minMax,
-  inBound
+  inBound,
+  isCallback
 }

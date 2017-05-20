@@ -5,7 +5,7 @@
  */
 
 import {requestEventListener} from './event-listeners'
-import {inBound, minMax} from './helpers'
+import {inBound, minMax, isCallback} from './helpers'
 import parallize from './parallize'
 
 /**
@@ -18,68 +18,44 @@ const PLUGIN_NAME = 'Parallazy'
 /**
  * Default options for plugin instances
  * @memberof module:Parallazy
+ * @prop {object} classNames
+ * @prop {string} classNames.visibleX
+ * @prop {string} classNames.visibleY
+ * @prop {string} classNames.pluginLoaded
+ * @prop {boolean} entering
+ * @prop {object} offset
+ * @prop {number} offset.top
+ * @prop {number} offset.right
+ * @prop {number} offset.bottom
+ * @prop {number} offset.left
+ * @prop {number} decimals
+ * @prop {array.<string>} events
+ * @prop {function|null} onProgress
+ * @prop {function|null} onTop
+ * @prop {function|null} onRight
+ * @prop {function|null} onBottom
+ * @prop {function|null} onLeft
  */
 const PLUGIN_DEFAULTS = {
   classNames: {
     visibleX: 'visible-x',
     visibleY: 'visible-y',
-    pluginLoaded: 'peekabooLoaded'
+    pluginLoaded: 'pluginLoaded'
   },
   entering: true,
-  offsetX: 0,
-  offsetY: 0,
+  offset: {
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0
+  },
   decimals: 10,
   events: ['scroll', 'resize'],
-
-  /**
-   * Callback function
-   * @param {number} progress
-   * @returns {any}
-   * @example
-   * onProgress(progress) {
-   *   el.setAttribute('data-progress-y', progress.top)
-   *   el.setAttribute('data-progress-x', progress.left)
-   * }
-   */
-  onProgress(progress) {
-    return progress
-  },
-  /**
-   * Callback function.
-   * Called while element is above view.
-   * @example
-   * onTop() {
-   *   console.log('above view')
-   * }
-   */
-  onTop() {},
-  /**
-   * Callback function.
-   * Called while element is right of view.
-   * @example
-   * onRight() {
-   *   console.log('right of view')
-   * }
-   */
-  onRight() {},
-  /**
-   * Callback function.
-   * Called while element is below view.
-   * @example
-   * onBottom() {
-   *   console.log('below view')
-   * }
-   */
-  onBottom() {},
-  /**
-   * Callback function.
-   * Called while element is left of view.
-   * @example
-   * onLeft() {
-   *   console.log('left of view')
-   * }
-   */
-  onLeft() {}
+  onProgress: null,
+  onTop: null,
+  onRight: null,
+  onBottom: null,
+  onLeft: null
 }
 
 class Parallazy {
@@ -107,7 +83,6 @@ class Parallazy {
    *     classNames: {
    *       visibleX: styles.visibleX,
    *       visibleY: styles.visibleY,
-   *       initiallyVisible: styles.initiallyVisible,
    *       pluginLoaded: styles.pluginLoaded
    *     },
    *     decimals: 4,
@@ -213,7 +188,7 @@ class Parallazy {
           .catch(err => err)
       })
     })
-    this.handleProgress(progress, true)
+    this.handleProgress(progress)
   }
 
   /**
@@ -223,19 +198,18 @@ class Parallazy {
    * @type {method}
    * @example
    * this.handleProgress({top: 0, left: 0.3, right: 0.7, bottom 1})
-   * this.handleProgress(progress, true)
    */
-  handleProgress(progress, force = false) {
+  handleProgress(progress) {
     const {decimals} = this.options
     const decimalBound = (1 / (Math.pow(10, decimals)))
-    const min = force ? 0 : -1 * decimalBound
-    const max = force ? 1 : 1 + decimalBound
+    const min = -1 * decimalBound
+    const max = 1 + decimalBound
     const bound = {
       x: inBound(progress.right, max, min),
       y: inBound(progress.bottom, max, min)
     }
     this.currentClasses(bound)
-    if ((bound.x && bound.y) || force) {
+    if (isCallback(this.options.onProgress) && (bound.x && bound.y)) {
       this.options.onProgress({
         top: minMax(progress.top),
         right: minMax(progress.right),
@@ -243,15 +217,15 @@ class Parallazy {
         left: minMax(progress.left)
       })
     } else if (bound.x) {
-      if (progress.top > 1) {
+      if (isCallback(this.options.onTop) && (progress.top > 1)) {
         this.options.onTop()
-      } else if (progress.top < 0) {
+      } else if (isCallback(this.options.onBottom) && (progress.top < 0)) {
         this.options.onBottom()
       }
     } else if (bound.y) {
-      if (progress.left > 1) {
+      if (isCallback(this.options.onLeft) && (progress.left > 1)) {
         this.options.onLeft()
-      } else if (progress.left < 0) {
+      } else if (isCallback(this.options.onRight) && (progress.left < 0)) {
         this.options.onRight()
       }
     }

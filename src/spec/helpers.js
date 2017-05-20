@@ -4,7 +4,35 @@
  */
 
 import test from 'ava'
-import {inBound, minMax} from '../helpers'
+import {inBound, minMax, isCallback} from '../helpers'
+
+test('isCallback is a function', t => {
+  t.true(typeof isCallback === 'function')
+})
+
+test('1 is not a callback', t => {
+  t.false(isCallback(1))
+})
+
+test('"foo" is not a callback', t => {
+  t.false(isCallback('foo'))
+})
+
+test('true is not a callback', t => {
+  t.false(isCallback(true))
+})
+
+test('{} is not a callback', t => {
+  t.false(isCallback({}))
+})
+
+test('[] is not a callback', t => {
+  t.false(isCallback([]))
+})
+
+test('()=>{} is not callback', t => {
+  t.true(isCallback(() => {}))
+})
 
 test('inBound is a function', t => {
   t.true(typeof inBound === 'function')
