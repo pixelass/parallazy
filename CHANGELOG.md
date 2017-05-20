@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/pixelass/parallazy/compare/v2.0.0...v3.0.0) (2017-05-20)
+
+
+### Bug Fixes
+
+* **development:** hmr instances ([c06e765](https://github.com/pixelass/parallazy/commit/c06e765))
+* **examples:** fix examples-1 ([9bed529](https://github.com/pixelass/parallazy/commit/9bed529))
+
+
+### Features
+
+* **options:** out of bound callbacks ([8c01ae1](https://github.com/pixelass/parallazy/commit/8c01ae1))
+
+
+### BREAKING CHANGES
+
+* **options:** onProgress only has one argument, API change
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/pixelass/parallazy/compare/v1.0.1...v2.0.0) (2017-05-20)
 
