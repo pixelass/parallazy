@@ -38,8 +38,8 @@ const PLUGIN_DEFAULTS = {
    * @returns {any}
    * @example
    * onProgress(element, progress) {
-   *   el.setAttribute('data-progress-y', progress.progressY)
-   *   el.setAttribute('data-progress-x', progress.progressX)
+   *   el.setAttribute('data-progress-y', progress.top)
+   *   el.setAttribute('data-progress-x', progress.left)
    * }
    */
   onProgress(element, progress) {
@@ -77,10 +77,14 @@ class Parallazy {
    *     },
    *     decimals: 2,
    *     entering: false,
-   *     offsetX: 100,
-   *     offsetY: 20,
+   *     offset: {
+   *       top: 50,
+   *       left: 80.
+   *       bottom: 100,
+   *       right: 200
+   *     },
    *     onProgress(el, p) {
-   *       el.style.setProperty('--progress-y', p.progressY)
+   *       el.style.setProperty('--progress-y', p.top)
    *     }
    *   })
    * })
@@ -149,15 +153,13 @@ class Parallazy {
    * @memberof module:Parallazy
    * @type {method}
    * @private
-   * @param {HTMLElement} el
    * @example
-   * this.onInit(this.el)
+   * this.onInit()
    */
-  onInit(el) {
+  onInit() {
     // Create namespaced eventnames
-    const progress = parallize(el, {
-      offsetX: this.options.offsetX,
-      offsetY: this.options.offsetY,
+    const progress = parallize(this.el, {
+      offset: this.options.offset,
       entering: this.options.entering,
       decimals: this.options.decimals
     })
@@ -165,7 +167,7 @@ class Parallazy {
     // Add global event listeners for a set of events
     this.options.events.forEach(event => {
       this[`cancel_${event}`] = requestEventListener(event, () => {
-        this.checkForItems(el)
+        this.checkForItems()
           .then(this.handleProgress.bind(this))
           .catch(err => err)
       })
@@ -179,14 +181,17 @@ class Parallazy {
    * @private
    * @type {method}
    * @example
-   * this.handleProgress({progressX: 0, progressY: 0.3})
+   * this.handleProgress({top: 0, left: 0.3, right: 0.7, bottom 1})
    */
   handleProgress(progress) {
-    this.currentClasses(this.el, {
-      x: inBound(progress.progressX),
-      y: inBound(progress.progressY)
-    })
-    this.options.onProgress(this.el, progress)
+    const bound = {
+      x: inBound(progress.bottom),
+      y: inBound(progress.right)
+    }
+    this.currentClasses(bound)
+    if (bound.x && bound.y) {
+      this.options.onProgress(this.el, progress)
+    }
   }
 
   /**
@@ -199,10 +204,10 @@ class Parallazy {
    * @example
    * this.currentClasses(this.el, {x: true, y: false})
    */
-  currentClasses(el, visible) {
+  currentClasses({x, y}) {
     const {visibleX, visibleY} = this.options.classNames
-    el.classList.toggle(visibleX, visible.x)
-    el.classList.toggle(visibleY, visible.y)
+    this.el.classList.toggle(visibleX, x)
+    this.el.classList.toggle(visibleY, y)
   }
 
   /**
@@ -210,16 +215,14 @@ class Parallazy {
    * @memberof module:Parallazy
    * @private
    * @type {method}
-   * @param {HTMLElement} el
    * @returns {promise}
    * @example
    * this.checkForItems(this.el)
    */
-  checkForItems(el) {
+  checkForItems() {
     return new Promise((resolve, reject) => {
-      const progress = parallize(el, {
-        offsetX: this.options.offsetX,
-        offsetY: this.options.offsetY,
+      const progress = parallize(this.el, {
+        offset: this.options.offset,
         entering: this.options.entering,
         decimals: this.options.decimals
       })

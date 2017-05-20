@@ -62,15 +62,15 @@ test('parallize returns an object', t => {
 })
 
 test('parallize adds progress', t => {
-  t.true(parallize(fakeEl()).progressX > 0)
+  t.true(parallize(fakeEl()).left > 0)
 })
 
 test('parallize allows options', t => {
   const el = fakeEl(100, 100, 0, 0)
-  const opt1 = parallize(el).progressY
-  const opt2 = parallize(el, {entering: false}).progressY
-  const opt3 = parallize(el, {entering: false, offsetY: -100}).progressY
-  const opt4 = parallize(el, {entering: false, offsetY: -200, decimals: 4}).progressY
+  const opt1 = parallize(el).top
+  const opt2 = parallize(el, {entering: false}).top
+  const opt3 = parallize(el, {entering: false, offset: {bottom: -100, top: -100}}).top
+  const opt4 = parallize(el, {entering: false, offset: {bottom: -200, top: -200}, decimals: 4}).top
   t.true(parseFloat(opt1) === 0.91)
   t.true(parseFloat(opt2) === 1)
   t.true(parseFloat(opt3) === 0.91)
