@@ -4,7 +4,7 @@ import styles from './examples-1.css' // eslint-disable-line import/no-unassigne
 
 const $ = (selector, context = document) => Array.from(context.querySelectorAll(selector))
 
-$('.parallazy').forEach((el, i) => {
+$('.parallazy').forEach(el => {
   const $inner = $('.inner', el)
   const parallazy = new Parallazy({
     classNames: {
@@ -15,15 +15,20 @@ $('.parallazy').forEach((el, i) => {
     },
     entering: false,
     offset: {
-      top: 2000,
-      bottom: 200,
+      top: 0,
+      bottom: 0,
       left: 0,
-      right: 0
+      right: 200
     },
-    decimals: 6,
-    onProgress(el, p) {
-      const offset = (Math.pow(p.top, (i % 4) + 1) * 100).toFixed(4)
+    onProgress(p) {
+      const offset = (p.top * 100).toFixed(8)
       $inner[0].style.transform = `translate3d(${offset}%,0,0)`
+    },
+    onTop() {
+      $inner[0].style.transform = 'translate3d(100%,0,0)'
+    },
+    onBottom() {
+      $inner[0].style.transform = 'translate3d(0%,0,0)'
     }
   })
   parallazy.init(el)
