@@ -22,6 +22,7 @@
 
 <!-- toc -->
 
+- [Links](#links)
 - [Usage](#usage)
   * [Multiple instances](#multiple-instances)
   * [Custom options](#custom-options)
@@ -29,6 +30,10 @@
 - [Developing](#developing)
 
 <!-- tocstop -->
+
+## Links
+  * [Old demo](https://pixelass.github.io/parallazy/)
+  * [Examples 1](https://pixelass.github.io/parallazy/examples-1.html)
 
 ## Usage
 
@@ -66,10 +71,14 @@ const parallazies = elements.map(el => {
       initiallyVisible: styles.initiallyVisible,
       pluginLoaded: styles.pluginLoaded
     },
+    offset: {
+      bottom: 100,
+      top: -100
+    },
     decimals: 2,
     entering: false,
-    onProgress(el, p) {
-      el.style.setProperty('--progress-y', p.progressY)
+    onProgress(el, {top}) {
+      el.style.setProperty('--progress-y', top)
     }
   })
   // initialize instance
