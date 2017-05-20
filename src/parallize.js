@@ -48,6 +48,7 @@ const parallize = (element, options = {}) => {
   }
   const {top, left, height, width} = element.getBoundingClientRect()
   const {innerHeight, innerWidth} = window
+  const {decimals, entering} = settings
   const bound = {
     left: left - offset.left,
     top: top - offset.top,
@@ -59,7 +60,7 @@ const parallize = (element, options = {}) => {
   // Different behaviour when tracking while entering and leaving.
   // If false tracking only happens if the element is fully visible.
   // Both versions respect the offset.
-  if (settings.entering) {
+  if (entering) {
     x = (bound.left + width) / (bound.width + width)
     y = (bound.top + height) / (bound.height + height)
   } else {
@@ -71,16 +72,19 @@ const parallize = (element, options = {}) => {
   // 0.5 => y === 50%
   // 1 => y === 100%
   // ...
+  const decimalBound = (1 / (Math.pow(10, decimals)))
+  const min = -1 * decimalBound
+  const max = 1 + decimalBound
   const progress = {
-    x: minMax(x),
-    y: minMax(y)
+    x: minMax(x, max, min),
+    y: minMax(y, max, min)
   }
   // Return a value vor every direction
   return {
-    top: (1 - progress.y).toFixed(settings.decimals),
-    right: (progress.x).toFixed(settings.decimals),
-    bottom: (progress.y).toFixed(settings.decimals),
-    left: (1 - progress.x).toFixed(settings.decimals)
+    top: (1 - progress.y).toFixed(decimals),
+    right: (progress.x).toFixed(decimals),
+    bottom: (progress.y).toFixed(decimals),
+    left: (1 - progress.x).toFixed(decimals)
   }
 }
 

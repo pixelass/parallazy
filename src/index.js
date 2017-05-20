@@ -5,7 +5,7 @@
  */
 
 import {requestEventListener} from './event-listeners'
-import {inBound} from './helpers'
+import {inBound, minMax} from './helpers'
 import parallize from './parallize'
 
 /**
@@ -33,18 +33,53 @@ const PLUGIN_DEFAULTS = {
 
   /**
    * Callback function
-   * @param {HTMLelement} element
    * @param {number} progress
    * @returns {any}
    * @example
-   * onProgress(element, progress) {
+   * onProgress(progress) {
    *   el.setAttribute('data-progress-y', progress.top)
    *   el.setAttribute('data-progress-x', progress.left)
    * }
    */
-  onProgress(element, progress) {
-    return {element, progress}
-  }
+  onProgress(progress) {
+    return progress
+  },
+  /**
+   * Callback function.
+   * Called while element is above view.
+   * @example
+   * onTop() {
+   *   console.log('above view')
+   * }
+   */
+  onTop() {},
+  /**
+   * Callback function.
+   * Called while element is right of view.
+   * @example
+   * onRight() {
+   *   console.log('right of view')
+   * }
+   */
+  onRight() {},
+  /**
+   * Callback function.
+   * Called while element is below view.
+   * @example
+   * onBottom() {
+   *   console.log('below view')
+   * }
+   */
+  onBottom() {},
+  /**
+   * Callback function.
+   * Called while element is left of view.
+   * @example
+   * onLeft() {
+   *   console.log('left of view')
+   * }
+   */
+  onLeft() {}
 }
 
 class Parallazy {
@@ -75,7 +110,7 @@ class Parallazy {
    *       initiallyVisible: styles.initiallyVisible,
    *       pluginLoaded: styles.pluginLoaded
    *     },
-   *     decimals: 2,
+   *     decimals: 4,
    *     entering: false,
    *     offset: {
    *       top: 50,
@@ -83,8 +118,14 @@ class Parallazy {
    *       bottom: 100,
    *       right: 200
    *     },
-   *     onProgress(el, p) {
+   *     onProgress(p) {
    *       el.style.setProperty('--progress-y', p.top)
+   *     },
+   *     onTop() {
+   *       el.style.setProperty('--progress-y', 1)
+   *     },
+   *     onBottom() {
+   *       el.style.setProperty('--progress-y', 0)
    *     }
    *   })
    * })
@@ -172,7 +213,7 @@ class Parallazy {
           .catch(err => err)
       })
     })
-    this.handleProgress(progress)
+    this.handleProgress(progress, true)
   }
 
   /**
@@ -182,15 +223,37 @@ class Parallazy {
    * @type {method}
    * @example
    * this.handleProgress({top: 0, left: 0.3, right: 0.7, bottom 1})
+   * this.handleProgress(progress, true)
    */
-  handleProgress(progress) {
+  handleProgress(progress, force = false) {
+    const {decimals} = this.options
+    const decimalBound = (1 / (Math.pow(10, decimals)))
+    const min = force ? 0 : -1 * decimalBound
+    const max = force ? 1 : 1 + decimalBound
     const bound = {
-      x: inBound(progress.bottom),
-      y: inBound(progress.right)
+      x: inBound(progress.right, max, min),
+      y: inBound(progress.bottom, max, min)
     }
     this.currentClasses(bound)
-    if (bound.x && bound.y) {
-      this.options.onProgress(this.el, progress)
+    if ((bound.x && bound.y) || force) {
+      this.options.onProgress({
+        top: minMax(progress.top),
+        right: minMax(progress.right),
+        bottom: minMax(progress.bottom),
+        left: minMax(progress.left)
+      })
+    } else if (bound.x) {
+      if (progress.top > 1) {
+        this.options.onTop()
+      } else if (progress.top < 0) {
+        this.options.onBottom()
+      }
+    } else if (bound.y) {
+      if (progress.left > 1) {
+        this.options.onLeft()
+      } else if (progress.left < 0) {
+        this.options.onRight()
+      }
     }
   }
 
