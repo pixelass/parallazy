@@ -19,7 +19,8 @@ const buildFolder = path.join(__dirname, '../docs')
 // key: input file
 // value: output name (used for css and js)
 const fileMap = {
-  'index.js': 'main'
+  'index.js': 'main',
+  'examples-1.js': 'examples-1'
 }
 // these files will be copied from the demoFolder to the buildFolder
 const demoFiles = [
@@ -75,7 +76,7 @@ const build = (watch = false) => {
       if (watch) {
         b.on('update', bundle)
         b.plugin(watchify)
-        b.plugin(hmr)
+        // b.plugin(hmr)
       }
       else {
         b.transform({
