@@ -51,17 +51,16 @@
     }
   },
   "dependencies": {
-    "abcq": "^0.2.2",
-    "babel-preset-stage-2": "^6.24.1",
-    "babel-runtime": "^6.23.0",
-    "yarn": "^0.24.4"
+    "babel-runtime": "^6.23.0"
   },
   "devDependencies": {
+    "abcq": "^0.2.2",
     "ava": "^0.19.1",
     "babel-cli": "^6.23.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-stage-0": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
     "babelify": "^7.3.0",
     "browserify": "^14.1.0",
     "browserify-hmr": "^0.3.5",
@@ -69,7 +68,7 @@
     "copy": "^0.3.0",
     "coveralls": "^2.11.16",
     "cross-env": "^5.0.0",
-    "css-modulesify": "^0.27.2",
+    "css-modulesify": "^0.28.0",
     "cz-conventional-changelog": "^2.0.0",
     "easing-utils": "^0.0.7",
     "errorify": "^0.3.1",
