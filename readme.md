@@ -1,6 +1,15 @@
-# parallazy
+# Parallazy
 
-> A lazy parallax plugin
+Parallazy is a parallax plugin that doesnÄ't do much on its own.
+
+Per default it adds classNames to elements when they enter the viewpot. 
+With the help of callbacks however, you can implement a huge variety of effects.
+
+You can track the element when it's visible or as it enters the viewport and even create your own bounding box. 
+Wile visible a callback deliveres progress values, exposing how far the element is from either side of the bounding box.
+
+Additionally you can define callbacks when the element is out of bound on either side.
+
 
 [![npm](https://img.shields.io/npm/v/parallazy.svg?style=flat-square)](https://www.npmjs.com/package/parallazy)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/pixelass/parallazy/master/LICENSE)
