@@ -53,10 +53,6 @@ global.window = {
   innerHeight: 1000
 }
 
-test('parallize is a function', t => {
-  t.true(typeof parallize === 'function')
-})
-
 test('parallize returns an object', t => {
   t.true(typeof parallize(fakeEl()) === 'object')
 })

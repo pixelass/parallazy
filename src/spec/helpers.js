@@ -6,10 +6,6 @@
 import test from 'ava'
 import {inBound, minMax, isCallback} from '../helpers'
 
-test('isCallback is a function', t => {
-  t.true(typeof isCallback === 'function')
-})
-
 test('1 is not a callback', t => {
   t.false(isCallback(1))
 })
@@ -34,10 +30,6 @@ test('()=>{} is not callback', t => {
   t.true(isCallback(() => {}))
 })
 
-test('inBound is a function', t => {
-  t.true(typeof inBound === 'function')
-})
-
 test('inBound returns a boolean', t => {
   t.true(typeof inBound(0) === 'boolean')
 })
@@ -54,10 +46,6 @@ test('inBound(0.999) is true', t => {
 test('inBound has optional parameters', t => {
   t.true(inBound(1, 2) === true)
   t.true(inBound(0, 2, 1) === false)
-})
-
-test('minMax is a function', t => {
-  t.true(typeof minMax === 'function')
 })
 
 test('minMax returns a number', t => {
