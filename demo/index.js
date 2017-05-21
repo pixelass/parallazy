@@ -97,7 +97,7 @@ examples.forEach(({selector, options, eases}) => {
         visibleY: styles.visibleY,
         pluginLoaded: styles.pluginLoaded
       },
-      onProgress(el, p) {
+      onProgress(p) {
         pX.innerText = `${(easing(p.left) * 100).toFixed(options.decimals - 2)}% : ${(easing(p.right) * 100).toFixed(options.decimals - 2)}%`
         pY.innerText = `${(easing(p.top) * 100).toFixed(options.decimals - 2)}% : ${(easing(p.bottom) * 100).toFixed(options.decimals - 2)}%`
         bar.style.transform = `scale3d(1, ${easing(p.top)}, 1)`

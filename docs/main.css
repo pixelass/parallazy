@@ -122,18 +122,18 @@ body::after {
   z-index: 1;
 }
 
-.a {
+.d {
   background: #fea32b;
 }
 
-.b {
+.e {
   background: #fc58fc;
 }
 
-.c {
+.f {
   /* pluginLoaded */
 }
 
-.a.b {
+.d.e {
   background: #63ff86;
 }

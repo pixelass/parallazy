@@ -6,7 +6,7 @@ Per default it adds classNames to elements when they enter the viewport.
 With the help of callbacks however, you can implement a huge variety of effects.
 
 You can track the element when it's visible or as it enters the viewport and even create your own bounding box. 
-Wile visible a callback delivers progress values, exposing how far the element is from either side of the bounding box.
+While visible a callback delivers progress values, exposing how far the element is from either side of the bounding box.
 
 Additionally you can define callbacks when the element is out of bound on either side.
 

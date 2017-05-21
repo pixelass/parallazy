@@ -51,18 +51,18 @@ body {
   background: #fd7d40;
 }
 
-.d {
+.a {
   /* visibleX */
 }
 
-.e {
+.b {
   /* visibleY */
 }
 
-.d.e {
+.a.b {
   /* visibleX & visibleY */
 }
 
-.f {
+.c {
   /* pluginLoaded */
 }
