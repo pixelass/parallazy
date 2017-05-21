@@ -1,33 +1,37 @@
 # Parallazy
 
-Parallazy is a parallax plugin that doesnÄ't do much on its own.
+Parallazy is a parallax plugin that doesn't do much on its own.
 
-Per default it adds classNames to elements when they enter the viewpot. 
+Per default it adds classNames to elements when they enter the viewport. 
 With the help of callbacks however, you can implement a huge variety of effects.
 
 You can track the element when it's visible or as it enters the viewport and even create your own bounding box. 
-Wile visible a callback deliveres progress values, exposing how far the element is from either side of the bounding box.
+Wile visible a callback delivers progress values, exposing how far the element is from either side of the bounding box.
 
 Additionally you can define callbacks when the element is out of bound on either side.
 
 
-[![npm](https://img.shields.io/npm/v/parallazy.svg?style=flat-square)](https://www.npmjs.com/package/parallazy)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/pixelass/parallazy/master/LICENSE)
-[![GitHub issues](https://img.shields.io/github/issues/pixelass/parallazy.svg?style=flat-square)](https://github.com/pixelass/parallazy/issues)
-[![Coveralls](https://img.shields.io/coveralls/pixelass/parallazy.svg?style=flat-square)](https://coveralls.io/github/pixelass/parallazy)
-[![bitHound](https://img.shields.io/bithound/code/github/pixelass/parallazy.svg?style=flat-square)](https://www.bithound.io/github/pixelass/parallazy)
-[![bitHound](https://img.shields.io/bithound/devDependencies/github/pixelass/parallazy.svg?style=flat-square)](https://www.bithound.io/github/pixelass/parallazy)
-[![Inline docs](http://inch-ci.org/github/pixelass/parallazy.svg?branch=master&style=flat-square)](http://inch-ci.org/github/pixelass/parallazy)
+[![npm](https://img.shields.io/npm/v/parallazy.svg?style=flat-square)](https://www.npmjs.com/package/parallazy)
 
+[![Travis branch](https://img.shields.io/travis/pixelass/parallazy/master.svg?style=flat-square)](https://travis-ci.org/pixelass/parallazy)
+[![Coveralls](https://img.shields.io/coveralls/pixelass/parallazy.svg?style=flat-square)](https://coveralls.io/github/pixelass/parallazy)
+[![Inline docs](http://inch-ci.org/github/pixelass/parallazy.svg?branch=master&style=flat-square)](http://inch-ci.org/github/pixelass/parallazy)
+[![bitHound](https://img.shields.io/bithound/code/github/pixelass/parallazy.svg?style=flat-square)](https://www.bithound.io/github/pixelass/parallazy)
+[![bitHound](https://img.shields.io/bithound/dependencies/github/pixelass/parallazy.svg?style=flat-square)](https://www.bithound.io/github/pixelass/parallazy)
+[![bitHound](https://img.shields.io/bithound/devDependencies/github/pixelass/parallazy.svg?style=flat-square)](https://www.bithound.io/github/pixelass/parallazy)  
+[![GitHub issues](https://img.shields.io/github/issues/pixelass/parallazy.svg?style=flat-square)](https://github.com/pixelass/parallazy/issues)
+[![GitHub pulls](https://img.shields.io/github/issues-pr/pixelass/parallazy.svg?style=flat-square)](https://github.com/pixelass/parallazy/pulls)
+
+[![code style xo](https://img.shields.io/badge/code_style-XO-64d8c7.svg?style=flat-square)](https://github.com/sindresorhus/xo)
+[![test ava](https://img.shields.io/badge/test-🚀_AVA-0e1d5c.svg?style=flat-square)](https://github.com/avajs/ava)
+[![yarn](https://img.shields.io/badge/yarn-friendly-2c8ebb.svg?style=flat-square)](https://yarnpkg.com/)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-44aa44.svg?style=flat-square)](http://commitizen.github.io/cz-cli/)
+[![Standard Version](https://img.shields.io/badge/release-standard%20version-44aa44.svg?style=flat-square)](https://github.com/conventional-changelog/standard-version)  
 [![Browserify](https://img.shields.io/badge/build-browserify-3c6991.svg?style=flat-square)](http://browserify.org/)
 [![Babel](https://img.shields.io/badge/babel-stage--2-f5da55.svg?style=flat-square)](http://babeljs.io/docs/plugins/preset-stage-2/)
 [![Babel](https://img.shields.io/badge/babel-transform--runtime-f5da55.svg?style=flat-square)](http://babeljs.io/docs/plugins/transform-runtime/)
-[![code style xo](https://img.shields.io/badge/code_style-XO-64d8c7.svg?style=flat-square)](https://github.com/sindresorhus/xo)
-[![Standard Version](https://img.shields.io/badge/release-standard%20version-44aa44.svg?style=flat-square)](https://github.com/conventional-changelog/standard-version)
-[![test ava](https://img.shields.io/badge/test-🚀_AVA-0e1d5c.svg?style=flat-square)](https://github.com/avajs/ava)
 
-[![yarn](https://img.shields.io/badge/yarn-friendly-2c8ebb.svg?style=flat-square)](https://yarnpkg.com/)
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-44aa44.svg?style=flat-square)](http://commitizen.github.io/cz-cli/)
 
 <!-- toc -->
 
