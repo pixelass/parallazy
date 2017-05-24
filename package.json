@@ -51,7 +51,8 @@
     }
   },
   "dependencies": {
-    "babel-runtime": "^6.23.0"
+    "babel-runtime": "^6.23.0",
+    "one-listener": "^0.5.1"
   },
   "devDependencies": {
     "abcq": "^0.2.2",
@@ -81,7 +82,6 @@
     "jsdoc": "^3.4.3",
     "mkdirp": "^0.5.1",
     "nyc": "^10.1.2",
-    "one-listener": "^0.5.1",
     "postcss-cssnext": "^2.11.0",
     "pug": "^2.0.0-rc.1",
     "rm-r": "^1.0.2",
