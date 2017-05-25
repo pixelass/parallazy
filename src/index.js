@@ -9,7 +9,8 @@ import {inBound, minMax, isCallback} from './helpers'
 import parallize from './parallize'
 
 /**
- * Global name of the jQuery plugin. This is to call the plugin.
+ * Global name of the plugin.
+ * Can be used to create a jQuery wrapper or similar.
  * @memberof module:Parallazy
  * @type {string}
  */
@@ -24,10 +25,10 @@ const PLUGIN_NAME = 'Parallazy'
  * @prop {string} classNames.pluginLoaded
  * @prop {boolean} entering
  * @prop {object} offset
- * @prop {number} offset.top
- * @prop {number} offset.right
- * @prop {number} offset.bottom
- * @prop {number} offset.left
+ * @prop {number|function} offset.top
+ * @prop {number|function} offset.right
+ * @prop {number|function} offset.bottom
+ * @prop {number|function} offset.left
  * @prop {number} decimals
  * @prop {array.<string>} events
  * @prop {function|null} onProgress
@@ -88,10 +89,14 @@ class Parallazy {
    *     decimals: 4,
    *     entering: false,
    *     offset: {
-   *       top: 50,
+   *       top() {
+   *         return window.innerHeight / 2
+   *       },
    *       left: 80.
    *       bottom: 100,
-   *       right: 200
+   *       right() {
+   *         return element.offsetWidth / 2
+   *       }
    *     },
    *     onProgress(p) {
    *       el.style.setProperty('--progress-y', p.top)
@@ -107,6 +112,12 @@ class Parallazy {
    */
   constructor(options = {}) {
     this.options = {...PLUGIN_DEFAULTS, ...options}
+    // Define a state to store out of bounds flags
+    // This will allow us to call out of bounds callbacks once
+    // @example
+    // onTop() {}
+    // only called once until onProgress has been called.
+    this.state = {}
     return this.methods
   }
 
@@ -216,17 +227,34 @@ class Parallazy {
         bottom: minMax(progress.bottom),
         left: minMax(progress.left)
       })
+      this.state = {}
     } else if (bound.x) {
       if (isCallback(this.options.onTop) && (progress.top > 1)) {
+        if (this.state.top) {
+          return
+        }
         this.options.onTop()
+        this.state.top = true
       } else if (isCallback(this.options.onBottom) && (progress.top < 0)) {
+        if (this.state.bottom) {
+          return
+        }
         this.options.onBottom()
+        this.state.bottom = true
       }
     } else if (bound.y) {
       if (isCallback(this.options.onLeft) && (progress.left > 1)) {
+        if (this.state.left) {
+          return
+        }
         this.options.onLeft()
+        this.state.left = true
       } else if (isCallback(this.options.onRight) && (progress.left < 0)) {
+        if (this.state.right) {
+          return
+        }
         this.options.onRight()
+        this.state.right = true
       }
     }
   }
@@ -258,8 +286,15 @@ class Parallazy {
    */
   checkForItems() {
     return new Promise((resolve, reject) => {
+      const {top, right, bottom, left} = this.options.offset
+      const offset = {
+        top: isCallback(top) ? top() : top,
+        right: isCallback(right) ? right() : right,
+        bottom: isCallback(bottom) ? bottom() : bottom,
+        left: isCallback(left) ? left() : left
+      }
       const progress = parallize(this.el, {
-        offset: this.options.offset,
+        offset,
         entering: this.options.entering,
         decimals: this.options.decimals
       })
