@@ -76,10 +76,10 @@ const parallazies = elements.map(el => {
   * `{string}` **`classNames.pluginLoaded`**
 * `{boolean}` **`entering`**
 * `{object}` **`offset`**
-  * `{number}` **`offset.top`**
-  * `{number}` **`offset.right`**
-  * `{number}` **`offset.bottom`**
-  * `{number}` **`offset.left`**
+  * `{number|function}` **`offset.top`**
+  * `{number|function}` **`offset.right`**
+  * `{number|function}` **`offset.bottom`**
+  * `{number|function}` **`offset.left`**
 * `{number}` **`decimals`**
 * `{array.<string>}` **`events`**
 * `{function|null}` **`onProgress`**
@@ -88,6 +88,70 @@ const parallazies = elements.map(el => {
 * `{function|null}` **`onBottom`**
 * `{function|null}` **`onLeft`**
 
+#### Classnames
+
+Use an object of classNames to add custom classes when the plugin is loaded and when the element is visible.
+
+#### Entering
+
+An element can be tracked while it's entering and leaving the bounding box.  
+Optionally you can decide to prevent tracking until the element is fully visible.  
+Both options respect the offset option.
+
+#### Offset
+
+Offset allows you to create a ghost bounding box.  
+You can either pass a number or a function while each property defaults to `0`.  
+
+```js
+const offset = {
+  top() {
+    window.innerHeight / 2 // will always subtract half of the window height, even after resize
+  },
+  right() {
+    element.offsetWidth / 2 // will always subtract half of the element width, even after size change
+  },
+  left: 100 // will always subtract 100,
+  // bottom is not set so `0` will be used
+}
+```
+
+#### Decimals
+
+Defines how many decimals you want to return.
+
+```js
+const options = {
+  decimals: 4,
+  onProgress({top}) {
+    console.log(top) // 0.0000, 0.0003
+  }
+}
+```
+
+#### Events
+
+Per default `scroll` and `resize` are tracked. You can add or remove events here.
+
+#### Callbacks
+
+The plugin calls multiple calbacks when defined.  
+The main callback is `onProgress` which is called with an object.
+It is only called if the element is considered in bound.  
+The other callbacks are once. They are reset when `onProgress` is called (the element is in bound).
+
+```js
+const options = {
+  onProgress(p) {
+    console.log(p) // => {top: 0, right: 0.7, bottom: 1, left: 0.3}
+  },
+  onTop() {
+    console.log('Out of bounds top') // only called once until reset
+  }
+}
+```
+
+#### Full example
 
 ```js
 import Parallazy from 'parallazy'
@@ -108,6 +172,7 @@ const parallazies = elements.map(el => {
     },
     decimals: 2,
     entering: false,
+    events: ['scroll'],
     onProgress({top}) {
       el.style.setProperty('--progress-y', top)
     },
