@@ -1,4 +1,11 @@
-
+.parallazy:nth-child(5n + 1) {
+    -ms-flex-preferred-size: 400px;
+        flex-basis: 400px;
+}
+.parallazy:nth-child(3n + 1) {
+    -ms-flex-preferred-size: 300px;
+        flex-basis: 300px;
+}
 body {
   margin: 0;
   padding: 100vh 0; /* stylelint-disable-line plugin/no-unsupported-browser-features */
@@ -28,18 +35,8 @@ body {
 }
 
 .parallazy:nth-child(2n + 1) {
-  -ms-flex-preferred-size: 200px;
-      flex-basis: 200px;
-}
-
-.parallazy:nth-child(3n + 1) {
-  -ms-flex-preferred-size: 300px;
-      flex-basis: 300px;
-}
-
-.parallazy:nth-child(5n + 1) {
-  -ms-flex-preferred-size: 400px;
-      flex-basis: 400px;
+    -ms-flex-preferred-size: 200px;
+        flex-basis: 200px;
 }
 
 .inner {
