@@ -32,13 +32,19 @@ Additionally you can define callbacks when the element is out of bound on either
 [![Babel](https://img.shields.io/badge/babel-stage--2-f5da55.svg?style=flat-square)](http://babeljs.io/docs/plugins/preset-stage-2/)
 [![Babel](https://img.shields.io/badge/babel-transform--runtime-f5da55.svg?style=flat-square)](http://babeljs.io/docs/plugins/transform-runtime/)
 
-
 <!-- toc -->
 
 - [Links](#links)
 - [Usage](#usage)
   * [Multiple instances](#multiple-instances)
   * [Options](#options)
+    + [Classnames](#classnames)
+    + [Entering](#entering)
+    + [Offset](#offset)
+    + [Decimals](#decimals)
+    + [Events](#events)
+    + [Callbacks](#callbacks)
+    + [Full example](#full-example)
   * [Destroy](#destroy)
 - [Developing](#developing)
 
