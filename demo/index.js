@@ -1,4 +1,4 @@
-/* global document */
+/* global document window */
 import {
   easeInCubic,
   easeInOutSine,
@@ -38,7 +38,9 @@ const examples = [
       decimals: 6,
       entering: true,
       offset: {
-        top: 100,
+        top() {
+          return window.innerHeight / 2
+        },
         bottom: 100,
         left: 100,
         right: 100
@@ -101,6 +103,14 @@ examples.forEach(({selector, options, eases}) => {
         pX.innerText = `${(easing(p.left) * 100).toFixed(options.decimals - 2)}% : ${(easing(p.right) * 100).toFixed(options.decimals - 2)}%`
         pY.innerText = `${(easing(p.top) * 100).toFixed(options.decimals - 2)}% : ${(easing(p.bottom) * 100).toFixed(options.decimals - 2)}%`
         bar.style.transform = `scale3d(1, ${easing(p.top)}, 1)`
+      },
+      onTop() {
+        pY.innerText = '100% : 0%'
+        bar.style.transform = 'scale3d(1,1,1)'
+      },
+      onBottom() {
+        pY.innerText = '0% : 100%'
+        bar.style.transform = 'scale3d(1,0,1)'
       },
       ...options
     })
