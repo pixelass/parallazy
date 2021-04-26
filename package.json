@@ -83,7 +83,7 @@
     "mkdirp": "^0.5.1",
     "nyc": "^10.1.2",
     "postcss-cssnext": "^2.11.0",
-    "pug": "^2.0.0-rc.1",
+    "pug": "^3.0.0",
     "rm-r": "^1.0.2",
     "sourcemapify": "^1.1.1",
     "standard-version": "^4.0.0",
