@@ -68,7 +68,7 @@
     "caniuse-db": "^1.0.30000671",
     "copy": "^0.3.0",
     "coveralls": "^2.11.16",
-    "cross-env": "^5.0.0",
+    "cross-env": "7.0.3",
     "css-modulesify": "^0.28.0",
     "cz-conventional-changelog": "^2.0.0",
     "easing-utils": "^0.0.7",
