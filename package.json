@@ -55,7 +55,7 @@
     "one-listener": "^0.5.1"
   },
   "devDependencies": {
-    "abcq": "^0.2.2",
+    "abcq": "1.0.2",
     "ava": "^0.19.1",
     "babel-cli": "^6.23.0",
     "babel-plugin-transform-runtime": "^6.23.0",
