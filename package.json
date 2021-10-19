@@ -76,7 +76,7 @@
     "express": "^4.15.3",
     "globby": "^6.1.0",
     "hopsdoc": "^0.1.7",
-    "http-server": "^0.10.0",
+    "http-server": "0.13.0",
     "husky": "^0.13.3",
     "ignore-styles": "^5.0.1",
     "jsdoc": "^3.4.3",
